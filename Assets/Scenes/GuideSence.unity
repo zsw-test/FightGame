@@ -441,7 +441,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 13254951662477446, guid: d63d56e450af82f4ea3246ccd6654c32,
+      - m_Target: {fileID: 1011576588000500055, guid: 6b5f90cd4652abd4bad017d72c6f0683,
           type: 3}
         m_MethodName: ChangeSence
         m_Mode: 5
@@ -450,7 +450,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Test
+          m_StringArgument: FightSence
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &979449317

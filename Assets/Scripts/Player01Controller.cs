@@ -72,7 +72,10 @@ public class Player01Controller : MonoBehaviour
 
         void GroundMovement()
         {
-            horizontalMove = Input.GetAxisRaw("Horizontal");//只返回-1，0，1
+         
+        if (Input.GetKey(KeyCode.A)) horizontalMove = -1;
+        else if (Input.GetKey(KeyCode.D)) horizontalMove = 1;
+        else horizontalMove = 0;
             rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
 
             if (horizontalMove != 0)
