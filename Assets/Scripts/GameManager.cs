@@ -8,56 +8,88 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject player1;
-    public GameObject player2;
-    public Text text;
-    public int timer = 3;
+
+    public Text StartText;
+    public Text FightText;
+    public int StartTimer = 3;
+    public int FightTimer = 60;
     private float timertick = 1;
-    public bool CountDown=false;
-    
+    public bool Startcountdown=false;//开始倒计时
+    public bool Fightcountdown = false;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        StartText.enabled = false;
     }
     private void Awake()
     {
-        text.enabled = false;
+       
         instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(CountDown)
+        if(Startcountdown)
         {
             StartCountDown();
-            text.enabled = true;
+        }
+        if(Fightcountdown)
+        {
+            FightCountDown();
         }
         
         
     }
   
+    //开始倒计时
    public void StartCountDown()
     {
-       if(timer>0)
+       if(StartTimer > 0)
         {
             
             timertick -= Time.deltaTime;
             if(timertick<=0)
             {
                 timertick = 1;
-                timer--;
-                text.text = timer.ToString();
+                StartTimer--;
+                StartText.text = StartTimer.ToString();
             }
         }else
         {
-            text.text = "开始";
+            StartText.text = "开始";
             timertick -= Time.deltaTime;
             if(timertick<=0)
             {
-                text.enabled = false;
+                StartText.enabled = false;
+                Startcountdown = false;
+                //战斗倒计时
+                Fightcountdown = true;
             }
+           
+           
+        }
+    }
+    //战斗倒计时
+    public void FightCountDown()
+    {
+        if (FightTimer > 0)
+        {
+
+            timertick -= Time.deltaTime;
+            if (timertick <= 0)
+            {
+                timertick = 1;
+                FightTimer--;
+                FightText.text = FightTimer.ToString();
+            }
+        }
+        else
+        {
+            Fightcountdown = false;
+          //判断胜利方
+        
         }
     }
 

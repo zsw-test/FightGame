@@ -31,7 +31,8 @@ public class CameraController : MonoBehaviour
         //角色二展示动画
         yield return new WaitForSeconds(3);
         CMV.SetActive(true);
-        GameManager.instance.CountDown = true;
+        GameManager.instance.Startcountdown = true;
+        GameManager.instance.StartText.enabled = true;
     }
     // Update is called once per frame
     void LateUpdate()
