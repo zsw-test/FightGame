@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8544784867937168484}
   - component: {fileID: 8544784867937168487}
   - component: {fileID: 1185379229}
+  - component: {fileID: 4179172760828603141}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -82,6 +83,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -104,7 +106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1832185931
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -206,24 +208,45 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8544784867937168480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 070afde29949d43b184f02ae92a2c8e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashTime: 0.15
+  cdTime: 0
+  lastTime: 0
+  dashSpeed: 50
   speed: 5
   jumpForce: 10
   groundCheck: {fileID: 7702263014672365174}
   ground:
     serializedVersion: 2
     m_Bits: 256
-  dashTime: 0.15
-  dashSpeed: 50
-  dashCoolDown: 1
-  cdImage: {fileID: 0}
   isGround: 0
   isJump: 0
   isDashing: 0
+--- !u!114 &4179172760828603141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544784867937168480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04aac2732fd20544299d7869967e1ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  JumpForce: 10
+  isGround: 0
+  isJump: 0
+  isDashing: 0
+  groundCheck: {fileID: 7702263014672365174}
+  ground:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &8939325037398479379
 GameObject:
   m_ObjectHideFlags: 0

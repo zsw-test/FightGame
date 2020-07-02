@@ -38,8 +38,11 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
 
-     
 
+        if (GetComponent<Camera>().orthographicSize < 2.7f)
+        {
+            GetComponent<Camera>().orthographicSize = 2.7f;
+        }
         
       
         //for (float i = 0; i < timer; i += Time.deltaTime)

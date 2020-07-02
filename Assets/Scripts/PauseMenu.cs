@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))                  //按ESC按键进行暂停
+        if (Input.GetKeyDown(KeyCode.Escape))                  //按ESC按键进行暂停
         {
             if (!flag)
             {
