@@ -16,7 +16,7 @@ public class shadow : MonoBehaviour
     private void OnEnable()
     {
         thisSprite = GetComponent<SpriteRenderer>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player1");
         thisSprite.sprite = player.GetComponent<SpriteRenderer>().sprite;
         alpha = 1;
         transform.position = player.transform.position;

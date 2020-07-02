@@ -235,22 +235,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1732028601777739997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d716e3b50d43b4a834176620755620, type: 3}
+  m_Script: {fileID: 11500000, guid: 706a8548f8fca6d43bd7f5c7e7f93233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashTime: 0
-  cdTime: 0
-  lastTime: 0
-  dashSpeed: 0
   speed: 5
-  jumpForce: 10
-  groundCheck: {fileID: 324159262809686731}
-  ground:
-    serializedVersion: 2
-    m_Bits: 0
+  JumpForce: 10
   isGround: 0
   isJump: 0
   isDashing: 0
+  defence: 0
+  death: 0
+  groundCheck: {fileID: 324159262809686731}
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &7359441501718890792
 GameObject:
   m_ObjectHideFlags: 0

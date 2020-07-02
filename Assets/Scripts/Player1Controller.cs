@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Player1Controller : MonoBehaviour
 {
-    public float speed=5;
-    public float JumpForce = 10;
+    public float speed=5f;
+    public float JumpForce = 10f;
+    public int dashSpeed = 50;
+    float dashTime = 0.3f;
     public bool isGround, isJump, isDashing,defence,death;
     private Rigidbody2D rb;
-    private Collider2D coll;
+    private BoxCollider2D BodyCollider;
     private Animator anim;
     bool jumpPressed;
     int jumpCount;
     private float horizontalMove;
-
+    private float dashTimeLeft=0;
+     
 
     public Transform groundCheck;
     public LayerMask ground;
@@ -21,7 +24,7 @@ public class Player1Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
+        BodyCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
     }
 
@@ -43,6 +46,16 @@ public class Player1Controller : MonoBehaviour
             defence = true;
         }
         else defence = false;
+        if (Input.GetKeyDown(KeyCode.J)&&isGround)
+        {
+
+            if(dashTimeLeft<=0)
+            {
+                isDashing = true;
+                dashTimeLeft = dashTime;
+            }
+        }
+        
     }
 
     private void FixedUpdate()
@@ -50,7 +63,7 @@ public class Player1Controller : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);
 
         GroundMovement();
-
+        Dash();
         Jump();
 
         SwitchAnim();
@@ -118,5 +131,28 @@ public class Player1Controller : MonoBehaviour
             transform.localScale = new Vector3(horizontalMove, 1, 1);
         }
 
+    }
+    void Dash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft >= 0)
+            {
+                if(isGround)
+                {
+                    rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, 0);
+                    dashTimeLeft -= Time.deltaTime;
+                    ShadowPool.instance.outPool();
+                    Debug.Log(dashTimeLeft);
+                    BodyCollider.enabled = false;
+
+                }
+            }
+            else
+            {
+                BodyCollider.enabled = true;
+                isDashing = false;
+            }
+        }
     }
 }

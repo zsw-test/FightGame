@@ -20,7 +20,7 @@ public class ShadowPool : MonoBehaviour
         {
             var shadow = Instantiate(Shadowpre);
             shadowspool.Enqueue(shadow);
-          shadow.transform.SetParent(transform);
+             shadow.transform.SetParent(transform);
             shadow.SetActive(false);
         }
     }
