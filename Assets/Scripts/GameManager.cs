@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public bool Startcountdown=false;//开始倒计时
     public bool Fightcountdown = false;
 
+    public GameObject result;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,12 @@ public class GameManager : MonoBehaviour
         {
             FightCountDown();
         }
-        
+
+
+        if (FightTimer == 0)
+        {
+            result.SetActive(true);
+        }
         
     }
   
@@ -91,6 +98,12 @@ public class GameManager : MonoBehaviour
           //判断胜利方
         
         }
+    }
+
+
+    public void WhoWin()
+    {
+
     }
 
 }
