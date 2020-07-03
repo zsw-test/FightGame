@@ -132,6 +132,10 @@ public class player01Controller : MonoBehaviour
             animator.SetInteger("Attack", hitCount);
             // attack = false;
         }
+
+
+
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             attack();

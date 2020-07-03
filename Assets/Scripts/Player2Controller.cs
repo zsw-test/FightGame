@@ -6,14 +6,16 @@ public class Player2Controller : MonoBehaviour
 {
     public float speed = 5;
     public float JumpForce = 10;
+    public float dashTime = 0.2f;
+    public int dashSpeed = 30;
     public bool isGround, isJump, isDashing, defence, death;
     private Rigidbody2D rb;
-    private Collider2D coll;
+    private BoxCollider2D BodyCollider;
     private Animator anim;
     bool jumpPressed;
     int jumpCount;
     private float horizontalMove;
-
+    private float dashTimeLeft = 0;
 
     public Transform groundCheck;
     public LayerMask ground;
@@ -21,10 +23,10 @@ public class Player2Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
+        BodyCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -43,6 +45,16 @@ public class Player2Controller : MonoBehaviour
             defence = true;
         }
         else defence = false;
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && isGround)
+        {
+
+            if (dashTimeLeft <= 0)
+            {
+                isDashing = true;
+                dashTimeLeft = dashTime;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -50,7 +62,7 @@ public class Player2Controller : MonoBehaviour
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);
 
         GroundMovement();
-
+        Dash();
         Jump();
 
         SwitchAnim();
@@ -118,5 +130,28 @@ public class Player2Controller : MonoBehaviour
             transform.localScale = new Vector3(horizontalMove, 1, 1);
         }
 
+    }
+    void Dash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft >= 0)
+            {
+                if (isGround)
+                {
+                    rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, 0);
+                    dashTimeLeft -= Time.deltaTime;
+                    //ShadowPool.instance.outPool();
+                    Debug.Log(dashTimeLeft);
+                    BodyCollider.enabled = false;//dash的时候设置自己的碰撞体不能被碰到
+
+                }
+            }
+            else
+            {
+                BodyCollider.enabled = true;
+                isDashing = false;
+            }
+        }
     }
 }

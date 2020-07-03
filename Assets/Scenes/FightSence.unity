@@ -729,7 +729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &694569410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,7 +956,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 3.4681978
+  orthographic size: 3.467614
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1034,8 +1034,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p1: {fileID: 1037605334}
   p2: {fileID: 736826014}
-  timer: 3
+  timer: 2
   CMV: {fileID: 694569409}
+  speed: 64
+  timertick: 2
 --- !u!4 &1225976355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 324159262809686731, guid: b8d887a708f5c114aae85f818a6dc30c,

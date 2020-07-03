@@ -6,14 +6,14 @@ public class Player1Controller : MonoBehaviour
 {
     public float speed=5f;
     public float JumpForce = 10f;
-    public int dashSpeed = 50;
-    float dashTime = 0.3f;
+    public int dashSpeed = 30;
+    public float dashTime = 0.2f;
     public bool isGround, isJump, isDashing,defence,death;
     private Rigidbody2D rb;
     private BoxCollider2D BodyCollider;
     private Animator anim;
-    bool jumpPressed;
-    int jumpCount;
+    public bool jumpPressed;
+    public int jumpCount;
     private float horizontalMove;
     private float dashTimeLeft=0;
      
@@ -46,7 +46,7 @@ public class Player1Controller : MonoBehaviour
             defence = true;
         }
         else defence = false;
-        if (Input.GetKeyDown(KeyCode.J)&&isGround)
+        if (Input.GetKeyDown(KeyCode.L)&&isGround)
         {
 
             if(dashTimeLeft<=0)
@@ -79,8 +79,9 @@ public class Player1Controller : MonoBehaviour
         }
         if (jumpPressed && isGround )  //一段跳
         {
-            isJump = true;
+           
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            isJump = true;
             jumpCount--;
             jumpPressed = false;
         }
@@ -95,14 +96,16 @@ public class Player1Controller : MonoBehaviour
 
     void SwitchAnim()//动画切换
     {
-        anim.SetFloat("running", Mathf.Abs(rb.velocity.x));
 
+        anim.SetFloat("running", Mathf.Abs(rb.velocity.x));
+        
         if (isGround)
         {
             anim.SetBool("falling", false);
         }
         else if (!isGround && rb.velocity.y > 0)
         {
+            
             anim.SetBool("jumping", true);
         }
         else if (rb.velocity.y < 0)
@@ -113,11 +116,11 @@ public class Player1Controller : MonoBehaviour
         if(defence)
         {
             //防御动画
-            anim.SetBool("crouching", true);
+            anim.SetBool("defence", true);
         }
         else
         {
-            anim.SetBool("crouching", false);
+            anim.SetBool("defence", false);
         }
     }
     void GroundMovement()
@@ -142,9 +145,9 @@ public class Player1Controller : MonoBehaviour
                 {
                     rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, 0);
                     dashTimeLeft -= Time.deltaTime;
-                    ShadowPool.instance.outPool();
+                  //  ShadowPool.instance.outPool();
                     Debug.Log(dashTimeLeft);
-                    BodyCollider.enabled = false;
+                    BodyCollider.enabled = false;//dash的时候设置自己的碰撞体不能被碰到
 
                 }
             }

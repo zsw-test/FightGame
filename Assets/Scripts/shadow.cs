@@ -11,12 +11,12 @@ public class shadow : MonoBehaviour
     public float alpha;
     public float Multiple;
     public float startTime;
-    
+    public string playerTag;
 
     private void OnEnable()
     {
         thisSprite = GetComponent<SpriteRenderer>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player1");
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
         thisSprite.sprite = player.GetComponent<SpriteRenderer>().sprite;
         alpha = 1;
         transform.position = player.transform.position;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2480615769236755676}
   - component: {fileID: 6326306292932775646}
   m_Layer: 0
-  m_Name: shadow
+  m_Name: shadow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,3 +99,4 @@ MonoBehaviour:
   alpha: 1
   Multiple: 0.9
   startTime: 0
+  playerTag: Player1
