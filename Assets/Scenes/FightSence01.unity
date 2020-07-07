@@ -2224,6 +2224,8 @@ MonoBehaviour:
   isDashing: 0
   defence: 0
   death: 0
+  jumpPressed: 0
+  jumpCount: 0
   groundCheck: {fileID: 1822948088}
   ground:
     serializedVersion: 2
@@ -2289,7 +2291,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 7.0752616
+  orthographic size: 7.070411
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2369,7 +2371,7 @@ MonoBehaviour:
   p2: {fileID: 426546175}
   timer: 2
   CMV: {fileID: 1923421714}
-  speed: 32
+  speed: 128
   timertick: 2
 --- !u!1 &1418489574
 GameObject:

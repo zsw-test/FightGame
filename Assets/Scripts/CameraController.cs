@@ -8,16 +8,17 @@ public class CameraController : MonoBehaviour
     public Transform p2;
     public float timer=2f;
     public GameObject CMV;
-    public float speed=4f;
+    public float speed=8f;
     public float timertick =2f;
     private bool p1showdown;
     private bool p2showdown;
+    public static CameraController instance;
     // Start is called before the first frame update
     void Start()
     {
         CMV.SetActive(false);
-       // StartCoroutine(Wait1());
-       
+        // StartCoroutine(Wait1());
+        instance = this;
     }
    //IEnumerator Wait1()
    // {
@@ -58,7 +59,7 @@ public class CameraController : MonoBehaviour
                     {
                         p1showdown = true;
                         timer = 2f;
-                        speed *= 2;
+                        
                     }
                 }
             }
@@ -107,5 +108,25 @@ public class CameraController : MonoBehaviour
         //    transform.position = new Vector3(p2.position.x, p2.position.y, -5f);
         //}
         //CinemachineBrain.gameObject.SetActive(true);
+    }
+    public void LockPlayer1()
+    {
+        CMV.SetActive(false);
+        //相机移动到p1
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(p1.position.x, p1.position.y, -10f), speed * Time.deltaTime);
+
+        //如果相机移动到了p1
+        if (Mathf.Approximately(transform.position.x, p1.position.x) && Mathf.Approximately(transform.position.y, p1.position.y))
+        {
+            //p1展示动画
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    timer = 2f;
+                }
+            }
+        }
     }
 }

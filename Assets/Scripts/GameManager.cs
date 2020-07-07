@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,23 +17,38 @@ public class GameManager : MonoBehaviour
     private float timertick = 1;
     public bool Startcountdown=false;//开始倒计时
     public bool Fightcountdown = false;
-
+    public bool EndRound = false; //这一句是否结束
+    public GameObject player1;
+    public GameObject player2;
+    public int winround = 2; //胜利的局数
     public GameObject result;
+    public Transform SwapPoint1;
+    public Transform SwapPoint2;
+    public int player1wincount=0;
+    public int player2wincount=0;
 
     // Start is called before the first frame update
     void Start()
     {
         StartText.enabled = false;
+       
+       
+        Instantiate(player1, SwapPoint1);
+        Instantiate(player2, SwapPoint2);
+      
     }
     private void Awake()
     {
-       
+        
         instance = this;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood );
         if(Startcountdown)
         {
             StartCountDown();
@@ -41,12 +57,57 @@ public class GameManager : MonoBehaviour
         {
             FightCountDown();
         }
-
-
-        if (FightTimer == 0)
+        if(SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentBlood<=0|| SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood <= 0)
         {
-            result.SetActive(true);
+            EndRound = true;
         }
+        if(EndRound)
+        {
+            if(SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentBlood > SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood)
+            {
+                //player1显示胜利  进入下一句
+                //player1胜利局数++
+                SenceManager.instance.player1wincount++;
+                
+                //playershow and reload sence
+                //result.SetActive(true);
+                if (SenceManager.instance.player1wincount == SenceManager.instance.wincount)
+                {
+                    Debug.Log("111");
+                    //跳转到胜利场景
+                    SenceManager.instance.ChangeSence(3);
+                    SenceManager.instance.clear();
+                }
+                else
+                {
+                    SenceManager.instance.ChangeSence(2);
+                }
+                
+            }
+            else if(player1.GetComponent<PlayerAttribute>().CurrentBlood < player2.GetComponent<PlayerAttribute>().CurrentBlood)
+            {
+                //player2胜利局数++
+                SenceManager.instance.player2wincount++;
+                
+                //playershow and reload sence
+                //result.SetActive(true);
+                if (SenceManager.instance.player2wincount == SenceManager.instance.wincount)
+                {
+                    SenceManager.instance.ChangeSence(3);
+                    SenceManager.instance.clear();
+                }
+                else
+                {
+                    SenceManager.instance.ChangeSence(2);
+                }
+               
+            }
+            else
+            {
+                SenceManager.instance.ChangeSence(2);
+            }
+        }
+
         
     }
   
@@ -95,15 +156,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Fightcountdown = false;
-          //判断胜利方
-        
+            //判断胜利方
+            EndRound = true;
+            
         }
     }
 
 
-    public void WhoWin()
+    public void RoundEnd()
     {
+        
 
     }
 
+    internal void WhoWin()
+    {
+        throw new NotImplementedException();
+    }
 }

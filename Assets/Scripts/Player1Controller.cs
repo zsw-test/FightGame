@@ -116,11 +116,11 @@ public class Player1Controller : MonoBehaviour
         if(defence)
         {
             //防御动画
-            anim.SetBool("defence", true);
+            anim.SetBool("crouching", true);
         }
         else
         {
-            anim.SetBool("defence", false);
+            anim.SetBool("crouching", false);
         }
     }
     void GroundMovement()
