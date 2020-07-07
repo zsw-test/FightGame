@@ -11,7 +11,7 @@ public class SenceManager : MonoBehaviour
     public int player2wincount;
     public string player1name;
     public string player2name;
-    public int wincount = 1;
+    public int wincount = 2;
     // Start is called before the first frame update
     void Start()
     {

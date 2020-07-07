@@ -372,7 +372,7 @@ MonoBehaviour:
   player2wincount: 0
   player1name: 
   player2name: 
-  wincount: 1
+  wincount: 2
 --- !u!1 &1365699779
 GameObject:
   m_ObjectHideFlags: 0

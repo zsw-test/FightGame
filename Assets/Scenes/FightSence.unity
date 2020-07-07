@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p1: {fileID: 1633699553}
   p2: {fileID: 1361858021}
-  timer: 2
+  timer: 0.7783304
   CMV: {fileID: 694569409}
   speed: 8
   timertick: 2
@@ -1410,6 +1410,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 142016259264424190, guid: a46f27afd022dc541aaccfef65f8f99e,
         type: 3}
+    - target: {fileID: 146845932376633998, guid: 55705cc065e8d8c489553baf6c509d8e,
+        type: 3}
+      propertyPath: StartTimer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 146845932376633999, guid: 55705cc065e8d8c489553baf6c509d8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1583,6 +1588,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655889906961151926, guid: bae7e76c95a7d1b4493a31ef9741cf78,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000019073486
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655889906961151926, guid: bae7e76c95a7d1b4493a31ef9741cf78,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120.473206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655889906961151926, guid: bae7e76c95a7d1b4493a31ef9741cf78,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655889906961151926, guid: bae7e76c95a7d1b4493a31ef9741cf78,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 258.37552
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bae7e76c95a7d1b4493a31ef9741cf78, type: 3}
