@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
+    public bool death = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +62,7 @@ public class PlayerAudio : MonoBehaviour
     }
     public void HurtAudio()
     {
+        
         if (gameObject.tag.Equals("Player1"))
         {
             SoundManager.instance.Hurt1Audio();
@@ -70,5 +72,20 @@ public class PlayerAudio : MonoBehaviour
             SoundManager.instance.Hurt2Audio();
         }
     }
-   
+    public void DeahAudio()
+    {
+        if (death == false)
+        {
+            if (gameObject.tag.Equals("Player1"))
+            {
+                SoundManager.instance.Death1Audio();
+            }
+            else if (gameObject.tag.Equals("Player2"))
+            {
+                SoundManager.instance.Death2Audio();
+            }
+            death = true;
+        }
+        
+    }
 }

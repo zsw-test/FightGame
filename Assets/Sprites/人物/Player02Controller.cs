@@ -66,12 +66,12 @@ public class Player02Controller : MonoBehaviour
                 dashTimeLeft = dashTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4) && isGround)
+        if (Input.GetKeyDown(KeyCode.Alpha5) && isGround)
         {
             isskill1 = true;
             moveable = false;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5) && isGround)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && isGround)
         {
             //attack();
             if (!isattack)
@@ -133,6 +133,7 @@ public class Player02Controller : MonoBehaviour
         if (jumpPressed && isGround)  //一段跳
         {
 
+            SoundManager.instance.Jump1Audio();
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             isJump = true;
             jumpCount--;
@@ -140,6 +141,7 @@ public class Player02Controller : MonoBehaviour
         }
         else if (jumpPressed && jumpCount > 0 && isJump) //二段跳
         {
+            SoundManager.instance.Jump1Audio();
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             jumpCount--;
             jumpPressed = false;
@@ -220,6 +222,7 @@ public class Player02Controller : MonoBehaviour
         {
 
             anim.SetBool("jumping", true);
+
         }
         else if (rb.velocity.y < 0)
         {
@@ -248,6 +251,7 @@ public class Player02Controller : MonoBehaviour
         if (isskill1)
         {
             anim.SetBool("skill1", true);
+
             moveable = false;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Skill1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
@@ -266,6 +270,7 @@ public class Player02Controller : MonoBehaviour
             anim.SetInteger("attack", hitCount);
             moveable = false;
             anim.SetBool("isattack", true);
+
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Atk1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
 
@@ -326,6 +331,7 @@ public class Player02Controller : MonoBehaviour
     {
         if (isDashing)
         {
+            moveable = false;
             if (dashTimeLeft >= 0)
             {
                 if (isGround)
@@ -337,7 +343,13 @@ public class Player02Controller : MonoBehaviour
                     BodyCollider.isTrigger = true;//dash的时候设置自己的碰撞体不能被碰到
                     rb.gravityScale = 0;
 
-
+                }
+                else
+                {
+                    //如果不在地上了
+                    BodyCollider.isTrigger = false;
+                    isDashing = false;
+                    rb.gravityScale = 6;
                 }
             }
             else
@@ -346,6 +358,10 @@ public class Player02Controller : MonoBehaviour
                 isDashing = false;
                 rb.gravityScale = 6;
             }
+        }
+        else
+        {
+            moveable = true;
         }
     }
     public void Attack()

@@ -303,7 +303,6 @@ public class Player01Controller : MonoBehaviour
         if (ishurt&&!defence)
         {
             anim.SetBool("hurt", true);
-            SoundManager.instance.Hurt1Audio();
             moveable = false;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
@@ -342,6 +341,7 @@ public class Player01Controller : MonoBehaviour
     {
         if (isDashing)
         {
+            moveable = false;
             if (dashTimeLeft >= 0)
             {
                 if (isGround)
@@ -368,6 +368,10 @@ public class Player01Controller : MonoBehaviour
                 isDashing = false;
                 rb.gravityScale = 6;
             }
+        }
+        else
+        {
+            moveable = true;
         }
     }
     public void Attack()

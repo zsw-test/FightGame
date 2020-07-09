@@ -309,10 +309,10 @@ RectTransform:
   m_Father: {fileID: 910855001}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.3, y: -51}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0.5, y: 0.39800003}
+  m_AnchorMax: {x: 0.5, y: 0.402}
+  m_AnchoredPosition: {x: 0.3000002, y: 0.5}
+  m_SizeDelta: {x: 160, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &768793119
 MonoBehaviour:
@@ -741,12 +741,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -876,17 +876,29 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1134050268}
         m_MethodName: ChangeSence
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: GuideSence
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1780034802}
         m_MethodName: ButtonAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+          type: 3}
+        m_MethodName: ChooseAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1090,5 +1102,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: WalkAudio.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: deathAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: bd1bb5a914d2e954db96198ad86fa227, type: 3}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: WalkAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: ad1fdd5a9ffe856498d9f09ecca0a7f3, type: 3}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: WalkAudio.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: dc75d9ef2a7bcce4ead5b352e9e7e3bd, type: 3}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: WalkAudio.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 44ad9bcdfcabe414fb28e9d2c69ac382, type: 3}
+    - target: {fileID: 4701682929965754202, guid: 6c1741c627b1514439333c668821b197,
+        type: 3}
+      propertyPath: WalkAudio.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 70bf563c2d1997c46b6338744a5095f8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c1741c627b1514439333c668821b197, type: 3}

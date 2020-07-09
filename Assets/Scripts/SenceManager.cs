@@ -39,6 +39,23 @@ public class SenceManager : MonoBehaviour
     {
 
     }
+    public void SetPlayer1(string name)
+    {
+        instance.player1name = name;
+    }
+    public void SetPlayer2(string name)
+    {
+        instance.player2name = name;
+    }
+    public void checkplayer()
+    {
+        
+        if (!instance.player1name.Equals("") && !instance.player2name.Equals(""))
+        {
+            ChangeSence(2);
+            SoundManager.instance.GuidAudio();
+        }
+    }
     public void ChangeSence(string name)
     {
         SceneManager.LoadScene(name);
@@ -47,7 +64,12 @@ public class SenceManager : MonoBehaviour
 
     public void ChangeSence(int num)
     {
+        if (num == 0||num==1)
+        {
+            instance.clear();
+        }
         SceneManager.LoadScene(num);
+        
 
     }
 }

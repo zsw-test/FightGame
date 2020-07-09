@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 5910584947753788704}
   - component: {fileID: 5910584947753788707}
   - component: {fileID: 2635644962913581785}
-  - component: {fileID: 2635644964081862979}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -223,31 +222,6 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 256
-  isGround: 0
-  isJump: 0
-  isDashing: 0
---- !u!114 &2635644964081862979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910584947753788708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2089d4a4efc143a40b938372daf2d109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashTime: 0
-  cdTime: 0
-  lastTime: 0
-  dashSpeed: 50
-  speed: 5
-  jumpForce: 10
-  groundCheck: {fileID: 5652121187661741874}
-  ground:
-    serializedVersion: 2
-    m_Bits: 0
   isGround: 0
   isJump: 0
   isDashing: 0

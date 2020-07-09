@@ -82,7 +82,7 @@ public class CameraController : MonoBehaviour
                     if (timer <= 0)
                     {
                         p2showdown = true;
-                        timer = 2f;
+                        timer = 3f;
                         //p1、p2都show完了  开始设置倒计时
                         CMV.SetActive(true);
                         GameManager.instance.Startcountdown = true;
@@ -104,9 +104,9 @@ public class CameraController : MonoBehaviour
                     timer -= Time.deltaTime;
                     if (timer <= 0)
                     {
-                        timer = 2f;
+                        timer = 3f;
                         CMV.SetActive(true);
-                        SenceManager.instance.ChangeSence(2);
+                        SenceManager.instance.ChangeSence(3);
                     }
                 }
             }
@@ -121,9 +121,22 @@ public class CameraController : MonoBehaviour
                     timer -= Time.deltaTime;
                     if (timer <= 0)
                     {
-                        timer = 2f;
+                        timer = 3f;
                         CMV.SetActive(true);
-                        SenceManager.instance.ChangeSence(2);
+                        SenceManager.instance.ChangeSence(3);
+                    }
+                }
+            }else if(Winner.Equals("None"))
+            {
+                if (timer > 0)
+                {
+                    GameManager.instance.StartText.enabled = true;
+                    GameManager.instance.StartText.text = "平局";
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        timer = 2f;
+                        SenceManager.instance.ChangeSence(3);
                     }
                 }
             }

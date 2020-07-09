@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartSence.unity
     guid: b66d216a1f8219747b49f6632d7dfa45
   - enabled: 1
+    path: Assets/Scenes/ChooseSence.unity
+    guid: 7672c93516de5b340bb39d9d9fb63069
+  - enabled: 1
     path: Assets/Scenes/GuideSence.unity
     guid: 67acc24dc5f7d2149a08868e5e389f2f
   - enabled: 1

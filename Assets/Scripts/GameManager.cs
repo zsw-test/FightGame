@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public CameraController cameracontroller;
 
-
+    public Slider Player1Health;
+    public Slider Player1Magic;
+    public Slider Player2Health;
+    public Slider Player2Magic;
     public Text StartText;
     public Text FightText;
     public int StartTimer = 4;
@@ -22,12 +25,15 @@ public class GameManager : MonoBehaviour
     public bool EndRoundExecute = false; //结束判断是否执行过
     public GameObject player1;
     public GameObject player2;
-    public int winround = 2; //胜利的局数
+    
     public GameObject result;
     public Transform SwapPoint1;
     public Transform SwapPoint2;
-    public int player1wincount=0;
-    public int player2wincount=0;
+
+    //局数的控制交给SenceManager  因为 这个gamemanager已经和场景里的物体关联了  
+    //public int WinCount = 2; //胜利的局数
+    //public int player1wincount=0;
+    //public int player2wincount=0;
 
     // Start is called before the first frame update
     void Start()
@@ -50,15 +56,15 @@ public class GameManager : MonoBehaviour
     }
     private void Awake()
     {
-        
+
         instance = this;
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        UpdatePlayerAttrUI();
         Debug.Log(SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood );
         if(Startcountdown)
         {
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour
             {
                 //player1显示胜利  进入下一句
                 //player1胜利局数++
-               
+
                 SenceManager.instance.player1wincount++;
                 
                 //playershow and reload sence
@@ -95,11 +101,10 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-
                     cameracontroller.Winner = "P1";
-
+                    //winner里面会控制场景跳转
                 }
-                
+
             }
             else if(SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentBlood < SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood)
             {
@@ -117,12 +122,13 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     cameracontroller.Winner = "P2";
+                    //winner里面会控制场景跳转
                 }
                
             }
             else
             {
-                SenceManager.instance.ChangeSence(2);
+                SenceManager.instance.ChangeSence(3);
                 
             }
         }
@@ -186,7 +192,15 @@ public class GameManager : MonoBehaviour
             
         }
     }
+    public void UpdatePlayerAttrUI()
+    {
+        Player1Health.value = (float)SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentBlood / SwapPoint1.GetComponentInChildren<PlayerAttribute>().Blood;
+        Player2Health.value = (float)SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood / SwapPoint2.GetComponentInChildren<PlayerAttribute>().Blood;
+        Player1Magic.value = (float)SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentEnergy / SwapPoint1.GetComponentInChildren<PlayerAttribute>().Energy;
+        Player2Magic.value = (float)SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentEnergy / SwapPoint2.GetComponentInChildren<PlayerAttribute>().Energy;
 
+
+    }
 
     public void RoundEnd()
     {
