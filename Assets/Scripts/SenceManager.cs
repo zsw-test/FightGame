@@ -19,8 +19,13 @@ public class SenceManager : MonoBehaviour
     }
     private void Awake()
     {
-        DontDestroyOnLoad(this);
-        instance = this;
+        
+        if (instance==null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+
     }
     public void clear()
     {

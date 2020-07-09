@@ -43,9 +43,18 @@ public class Player01Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K) && jumpCount > 0)
         {
             jumpPressed = true;
+            
         }
-        if (Input.GetKey(KeyCode.A)) horizontalMove = -1;
-        else if (Input.GetKey(KeyCode.D)) horizontalMove = 1;
+        if (Input.GetKey(KeyCode.A))
+        {
+           
+            horizontalMove = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+           
+            horizontalMove = 1;
+        }
         else horizontalMove = 0;
         if (Input.GetKey(KeyCode.S))
         {
@@ -69,11 +78,13 @@ public class Player01Controller : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.I)&&isGround)
         {
+           
             isskill1 = true;
             moveable = false;
         }
         if (Input.GetKeyDown(KeyCode.J)&&isGround)
         {
+          
             //attack();
             if (!isattack)
                 hitCount++;
@@ -133,6 +144,7 @@ public class Player01Controller : MonoBehaviour
         if (jumpPressed && isGround)  //一段跳
         {
 
+            SoundManager.instance.Jump1Audio();
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             isJump = true;
             jumpCount--;
@@ -140,6 +152,7 @@ public class Player01Controller : MonoBehaviour
         }
         else if (jumpPressed && jumpCount > 0 && isJump) //二段跳
         {
+            SoundManager.instance.Jump1Audio();
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             jumpCount--;
             jumpPressed = false;
@@ -209,7 +222,7 @@ public class Player01Controller : MonoBehaviour
         }
         //跑步动画
         anim.SetFloat("running", Mathf.Abs(rb.velocity.x));
-
+        
         //跳跃动画
         if (isGround)
         {
@@ -219,6 +232,7 @@ public class Player01Controller : MonoBehaviour
         {
 
             anim.SetBool("jumping", true);
+            
         }
         else if (rb.velocity.y < 0)
         {
@@ -247,6 +261,7 @@ public class Player01Controller : MonoBehaviour
         if(isskill1)
         {
             anim.SetBool("skill1", true);
+            
             moveable = false;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Skill1")&&anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1f)
             {
@@ -265,7 +280,8 @@ public class Player01Controller : MonoBehaviour
             anim.SetInteger("attack", hitCount);
             moveable = false;
             anim.SetBool("isattack", true);
-            if(anim.GetCurrentAnimatorStateInfo(0).IsName("Atk1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
+          
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Atk1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
                 
                 anim.SetBool("isattack", false);
@@ -287,6 +303,7 @@ public class Player01Controller : MonoBehaviour
         if (ishurt&&!defence)
         {
             anim.SetBool("hurt", true);
+            SoundManager.instance.Hurt1Audio();
             moveable = false;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {

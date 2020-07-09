@@ -1216,7 +1216,7 @@ GameObject:
   m_Layer: 0
   m_Name: CorePoint2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1259,7 +1259,7 @@ GameObject:
   m_Layer: 0
   m_Name: CorePoint1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1418,17 +1418,17 @@ PrefabInstance:
     - target: {fileID: 146845932376633999, guid: 55705cc065e8d8c489553baf6c509d8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 375.38895
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 146845932376633999, guid: 55705cc065e8d8c489553baf6c509d8e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 212.68813
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 146845932376633999, guid: 55705cc065e8d8c489553baf6c509d8e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3665218
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 146845932376633999, guid: 55705cc065e8d8c489553baf6c509d8e,
         type: 3}

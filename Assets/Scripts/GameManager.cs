@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public CameraController cameracontroller;
 
 
     public Text StartText;
@@ -31,20 +32,27 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cameracontroller =GameObject.Find("Camera").GetComponent<CameraController>();
         StartText.enabled = false;
         var total = SenceManager.instance.player1wincount + 1 + SenceManager.instance.player2wincount;
         string RoundName = "第" + total + "局";
         StartText.text = RoundName.ToString();
 
+        
+
         Instantiate(player1, SwapPoint1);
         Instantiate(player2, SwapPoint2);
-      
+        //设置角色不能移动
+        //SwapPoint1.GetComponentInChildren<Player01Controller>().moveable = false;
+        //SwapPoint2.GetComponentInChildren<Player02Controller>().moveable = false;
+
+
     }
     private void Awake()
     {
         
         instance = this;
-        
+       
     }
 
     // Update is called once per frame
@@ -87,7 +95,9 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    SenceManager.instance.ChangeSence(2);
+
+                    cameracontroller.Winner = "P1";
+
                 }
                 
             }
@@ -106,8 +116,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    SenceManager.instance.ChangeSence(2);
-                 
+                    cameracontroller.Winner = "P2";
                 }
                
             }
@@ -139,7 +148,12 @@ public class GameManager : MonoBehaviour
         {
             StartText.text = "FIght!";
             timertick -= Time.deltaTime;
-            if(timertick<=0)
+            //然后角色可以移动了
+        
+            SwapPoint1.GetComponentInChildren<Player01Controller>().moveable = true;
+            SwapPoint2.GetComponentInChildren<Player02Controller>().moveable = true;
+
+            if (timertick<=0)
             {
                 StartText.enabled = false;
                 Startcountdown = false;
