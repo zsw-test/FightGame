@@ -29,8 +29,8 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        //   StartAudio();
-        ButtonAudio();
+         StartAudio();
+        //ButtonAudio();
     }
     public  void Jump1Audio()              //玩家1跳跃音效
     {
