@@ -87,7 +87,7 @@ public class Player02Controller : MonoBehaviour
             GetComponentInChildren<ParticleSystem>().Play();
             atr.CurrentEnergy -= 3.0f;
         }
-
+        atr.Defence = defence;
 
     }
 
@@ -133,7 +133,7 @@ public class Player02Controller : MonoBehaviour
         if (jumpPressed && isGround)  //一段跳
         {
 
-            SoundManager.instance.Jump1Audio();
+           
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             isJump = true;
             jumpCount--;
@@ -141,7 +141,7 @@ public class Player02Controller : MonoBehaviour
         }
         else if (jumpPressed && jumpCount > 0 && isJump) //二段跳
         {
-            SoundManager.instance.Jump1Audio();
+            
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             jumpCount--;
             jumpPressed = false;
@@ -289,18 +289,28 @@ public class Player02Controller : MonoBehaviour
 
         }
 
-        //受伤动画
-        if (ishurt && !defence)
+        //受伤动画 
+        if (ishurt && !defence&&!anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
         {
             anim.SetBool("hurt", true);
             moveable = false;
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
-            {
-                anim.SetBool("hurt", false);
-                ishurt = false;
-                moveable = true;
-            }
+            ishurt = false;
         }
+        // 如果受伤的过程中再受伤  就将受伤的状态改为false  
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f&&ishurt)
+        {
+            anim.SetBool("hurt", false);
+            moveable = true;
+        }
+        //如果受伤的动画结束了  就可以移动了 并且将受伤改为false
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime>1f)
+        {
+            anim.SetBool("hurt", false);
+            moveable = true;
+        }
+
+
+
         if (atr.Death)
         {
             anim.SetBool("death", true);

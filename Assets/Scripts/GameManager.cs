@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public GameObject result;
     public Transform SwapPoint1;
     public Transform SwapPoint2;
+    public GameObject p1Obstacle;
+    public GameObject p2Obstacle;
 
     //局数的控制交给SenceManager  因为 这个gamemanager已经和场景里的物体关联了  
     //public int WinCount = 2; //胜利的局数
@@ -65,7 +67,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdatePlayerAttrUI();
-        Debug.Log(SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood );
         if(Startcountdown)
         {
             StartCountDown();
@@ -154,8 +155,13 @@ public class GameManager : MonoBehaviour
         {
             StartText.text = "FIght!";
             timertick -= Time.deltaTime;
+
+            //或者设置障碍物不让角色移动  现在可以将障碍物移除
+            p1Obstacle.SetActive(false);
+            p2Obstacle.SetActive(false);
             //然后角色可以移动了
-        
+
+
             SwapPoint1.GetComponentInChildren<Player01Controller>().moveable = true;
             SwapPoint2.GetComponentInChildren<Player02Controller>().moveable = true;
 

@@ -21,7 +21,8 @@ public class Player01Controller : MonoBehaviour
     private float horizontalMove;
     private float dashTimeLeft = 0;
     private AnimatorStateInfo stateInfo;
-
+    private float ContinueAtkTime = 0.5f;//连击时间间隔
+    private float ContinueAtkTimeTick = 0.5f;
     public Transform groundCheck;
     public Transform AttackPoint;
     public LayerMask ground;
@@ -144,7 +145,7 @@ public class Player01Controller : MonoBehaviour
         if (jumpPressed && isGround)  //一段跳
         {
 
-            SoundManager.instance.Jump1Audio();
+            
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             isJump = true;
             jumpCount--;
@@ -152,7 +153,7 @@ public class Player01Controller : MonoBehaviour
         }
         else if (jumpPressed && jumpCount > 0 && isJump) //二段跳
         {
-            SoundManager.instance.Jump1Audio();
+            
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
             jumpCount--;
             jumpPressed = false;
@@ -280,7 +281,22 @@ public class Player01Controller : MonoBehaviour
             anim.SetInteger("attack", hitCount);
             moveable = false;
             anim.SetBool("isattack", true);
-          
+
+            //int prehitcount = hitCount;
+            //if(prehitcount < 3)
+            //{
+            //    if(ContinueAtkTimeTick>0)
+            //    {
+            //        ContinueAtkTimeTick -= Time.deltaTime;
+            //        if(ContinueAtkTimeTick<=0)
+            //        {
+            //            if(hitCount==prehitcount)
+            //            {
+            //                hitCount = 0;
+            //            }
+            //        }
+            //    }
+            //}
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Atk1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
                 
@@ -299,19 +315,41 @@ public class Player01Controller : MonoBehaviour
             
         }
 
-        //受伤动画
-        if (ishurt&&!defence)
+        ////受伤动画
+        //if (ishurt&&!defence)
+        //{
+        //    anim.SetBool("hurt", true);
+        //    moveable = false;
+        //    if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
+        //    {
+        //        anim.SetBool("hurt", false);
+        //        ishurt = false;
+        //        moveable = true;
+        //    }
+        //}
+
+        //受伤动画  这样写可以受伤的时候继续受伤  不会一直显示受伤动画
+        if (ishurt && !defence && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
         {
             anim.SetBool("hurt", true);
             moveable = false;
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
-            {
-                anim.SetBool("hurt", false);
-                ishurt = false;
-                moveable = true;
-            }
+            ishurt = false;
         }
-        if(atr.Death)
+        // 如果受伤的过程中再受伤  就将受伤的状态改为false  
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f && ishurt)
+        {
+            anim.SetBool("hurt", false);
+            moveable = true;
+        }
+        //如果受伤的动画结束了  就可以移动了 并且将受伤改为false
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
+        {
+            anim.SetBool("hurt", false);
+            moveable = true;
+        }
+
+
+        if (atr.Death)
         {
             anim.SetBool("death", true);
             moveable = false;
@@ -389,6 +427,6 @@ public class Player01Controller : MonoBehaviour
             }
         }
     }
-
+    
    
 }

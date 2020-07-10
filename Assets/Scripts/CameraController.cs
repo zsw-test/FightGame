@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public Transform p2;
     public float timer=2f;
     public GameObject CMV;
-    public float speed=8f;
+    public float speed=16f;
     public float timertick =2f;
     private bool p1showdown;
     private bool p2showdown;

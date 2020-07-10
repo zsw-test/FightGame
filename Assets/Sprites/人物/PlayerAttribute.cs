@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAttribute : MonoBehaviour
 {
-    public int Blood = 200;        //血量
+    public int Blood = 300;        //血量
     public float Energy = 3f;          //能量
-    public int CurrentBlood = 200;    //当前血量
+    public int CurrentBlood = 300;    //当前血量
     public float CurrentEnergy = 3;   //当前能量
     public int AttackDamage = 10;  //普攻伤害
     public int SkillDamage = 50;    //技能伤害

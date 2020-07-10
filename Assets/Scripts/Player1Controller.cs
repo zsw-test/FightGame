@@ -16,7 +16,7 @@ public class Player1Controller : MonoBehaviour
     public int jumpCount;
     private float horizontalMove;
     private float dashTimeLeft=0;
-     
+    private float ContinueAtkTime = 0.5f;
 
     public Transform groundCheck;
     public LayerMask ground;
