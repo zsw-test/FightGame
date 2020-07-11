@@ -105,8 +105,13 @@ public class CameraController : MonoBehaviour
                     if (timer <= 0)
                     {
                         timer = 3f;
-                        CMV.SetActive(true);
-                        SenceManager.instance.ChangeSence(3);
+                        if (GameManager.instance.GameEnd)
+                            SenceManager.instance.ChangeSence(4);
+                        else
+                        {
+                            CMV.SetActive(true);
+                            SenceManager.instance.ChangeSence(3);
+                        }
                     }
                 }
             }
@@ -122,8 +127,13 @@ public class CameraController : MonoBehaviour
                     if (timer <= 0)
                     {
                         timer = 3f;
-                        CMV.SetActive(true);
-                        SenceManager.instance.ChangeSence(3);
+                        if (GameManager.instance.GameEnd)
+                            SenceManager.instance.ChangeSence(4);
+                        else
+                        {
+                            CMV.SetActive(true);
+                            SenceManager.instance.ChangeSence(3);
+                        }
                     }
                 }
             }else if(Winner.Equals("None"))

@@ -10,7 +10,7 @@ public class Player02Controller : MonoBehaviour
     public float dashTime = 0.2f;
     public float DefenceSpeed = 2f;
     public float CurSpeed = 0;
-    public bool isGround, isJump, isDashing, defence, death, isskill1, isattack, isbreakout, ishurt, moveable = true;
+    public bool isGround, isJump, isDashing, defence, death, isskill1,isskill2, isattack, isbreakout, ishurt, moveable = true;
     public int hitCount = 0;
     private Rigidbody2D rb;
     private CapsuleCollider2D BodyCollider;
@@ -21,11 +21,16 @@ public class Player02Controller : MonoBehaviour
     private float horizontalMove;
     private float dashTimeLeft = 0;
     private AnimatorStateInfo stateInfo;
-
+    private float ContinueAtkTime = 0.5f;//连击时间间隔
+    private float ContinueAtkTimeTick = 0.5f;
     public Transform groundCheck;
     public Transform AttackPoint;
     public LayerMask ground;
     public LayerMask Player2;
+    public GameObject breakout;
+    public float breakouttimertick = 10f;
+    public GameObject shield;
+    public GameObject KnifeWave;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +38,16 @@ public class Player02Controller : MonoBehaviour
         BodyCollider = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
         atr = GetComponent<PlayerAttribute>();
+        breakout.gameObject.SetActive(false);
+        shield.gameObject.SetActive(false);
     }
+
     // Update is called once per frame
     void Update()
     {
 
         //按键检测-->状态设置
-        if (Input.GetKeyDown(KeyCode.Alpha2) && jumpCount > 0)
+        if ((Input.GetKeyDown(KeyCode.Alpha2)||Input.GetKeyDown(KeyCode.Keypad2)) && jumpCount > 0)
         {
             jumpPressed = true;
         }
@@ -57,7 +65,7 @@ public class Player02Controller : MonoBehaviour
             defence = false;
             CurSpeed = RunSpeed;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && isGround)
+        if ((Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) && isGround)
         {
 
             if (dashTimeLeft <= 0)
@@ -66,12 +74,17 @@ public class Player02Controller : MonoBehaviour
                 dashTimeLeft = dashTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5) && isGround)
+        if ((Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) && isGround)
         {
             isskill1 = true;
             moveable = false;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1) && isGround)
+        if ((Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) && isGround)
+        {
+            isskill2 = true;
+            moveable = false;
+        }
+        if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && isGround)
         {
             //attack();
             if (!isattack)
@@ -80,18 +93,30 @@ public class Player02Controller : MonoBehaviour
             moveable = false;
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6) && atr.CurrentEnergy == 3.0f && isbreakout == false)
+        if ((Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) && atr.CurrentEnergy == 3.0f && isbreakout == false)
         {
+            SoundManager.instance.Energy1Audio();
             atr.Breakout = true;
             isbreakout = true;
-            GetComponentInChildren<ParticleSystem>().Play();
             atr.CurrentEnergy -= 3.0f;
         }
         atr.Defence = defence;
 
     }
+    void ShotKinfeWave()
+    {
 
-
+        Transform temp = Instantiate(KnifeWave, new Vector3(AttackPoint.position.x, AttackPoint.position.y + 1f, AttackPoint.position.z), Quaternion.identity).GetComponent<Transform>();
+        temp.localScale = new Vector3(-transform.localScale.x, 1, 1);
+        //Instantiate(KnifeWave, AttackPoint.position, transform.rotation);
+    }
+    IEnumerator StartShiled()
+    {
+        shield.SetActive(true);
+        SoundManager.instance.Defence2Audio();
+        yield return new WaitForSeconds(0.5f);
+        shield.SetActive(false);
+    }
     private void FixedUpdate()
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);
@@ -148,7 +173,7 @@ public class Player02Controller : MonoBehaviour
         }
     }
 
-    public float breakouttimertick = 0.2f;
+  
     void SwitchAnim()//动画切换
     {
         //stateInfo = anim.GetCurrentAnimatorStateInfo(0);
@@ -183,29 +208,39 @@ public class Player02Controller : MonoBehaviour
         //{
 
         //}
-
         //爆气动画处理
         if (isbreakout)
         {
 
-            if (GetComponentInChildren<ParticleSystem>().isStopped)
+            //if (GetComponentInChildren<ParticleSystem>().isStopped)
+            //  {
+            //      isbreakout = false;
+            //      atr.Breakout = false;
+            //      GetComponent<SpriteRenderer>().color = Color.white;
+            //  }
+            //  else
+            //  {
+            //      if(breakouttimertick > 0)
+            //      {
+            //          GetComponent<SpriteRenderer>().color = new Color(1, 1, 0, 1);
+            //          breakouttimertick -= Time.deltaTime;
+            //      }else if (breakouttimertick <= 0)
+            //      {
+            //          breakouttimertick -= Time.deltaTime;
+            //          GetComponent<SpriteRenderer>().color = Color.white;
+            //          if (breakouttimertick < -0.2f) breakouttimertick = 0.2f;
+            //      }
+            //  }
+            if (breakouttimertick > 0)
             {
-                isbreakout = false;
-                atr.Breakout = false;
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            else
-            {
-                if (breakouttimertick > 0)
+                breakout.gameObject.SetActive(true);
+                breakouttimertick -= Time.deltaTime;
+                if (breakouttimertick <= 0)
                 {
-                    GetComponent<SpriteRenderer>().color = new Color(1, 1, 0, 1);
-                    breakouttimertick -= Time.deltaTime;
-                }
-                else if (breakouttimertick <= 0)
-                {
-                    breakouttimertick -= Time.deltaTime;
-                    GetComponent<SpriteRenderer>().color = Color.white;
-                    if (breakouttimertick < -0.2f) breakouttimertick = 0.2f;
+                    breakouttimertick = 10f;
+                    breakout.gameObject.SetActive(false);
+                    isbreakout = false;
+                    atr.Breakout = false;
                 }
             }
 
@@ -238,6 +273,7 @@ public class Player02Controller : MonoBehaviour
             //防御的时候打我是不会受伤的
             if (ishurt)
             {
+                StartCoroutine(StartShiled());
                 ishurt = false;
             }
 
@@ -255,11 +291,24 @@ public class Player02Controller : MonoBehaviour
             moveable = false;
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Skill1") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
             {
+              
                 anim.SetBool("skill1", false);
                 isskill1 = false;
                 moveable = true;
             }
 
+        }
+        if (isskill2)
+        {
+            anim.SetBool("skill2", true);
+            //发射knifeWave
+            moveable = false;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Skill2") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
+            {
+                anim.SetBool("skill2", false);
+                isskill2 = false;
+                moveable = true;
+            }
         }
         //if (anim.GetCurrentAnimatorStateInfo(0).IsName("Atk3"))
         //    Debug.Log(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);

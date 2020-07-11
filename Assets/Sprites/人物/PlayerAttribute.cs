@@ -9,7 +9,7 @@ public class PlayerAttribute : MonoBehaviour
     public int CurrentBlood = 300;    //当前血量
     public float CurrentEnergy = 3;   //当前能量
     public int AttackDamage = 10;  //普攻伤害
-    public int SkillDamage = 50;    //技能伤害
+    public int SkillDamage = 30;    //技能伤害
     public bool Breakout = false;    //是否爆气
     public int BreakoutTime = 15;   //爆气时间
     public float BreakoutAddition = 1.5f;   //爆气加成
@@ -30,10 +30,13 @@ public class PlayerAttribute : MonoBehaviour
         Debug.Log(damage);
         return damage;
     }
-    void Skill1()       //技能攻击1
+    public int MySkillDamage()
     {
-
+        int damage = Breakout ? (int)(SkillDamage * BreakoutAddition) : SkillDamage;
+        Debug.Log(damage);
+        return damage;
     }
+    
 
     public void GetHurt(int damage)
     {

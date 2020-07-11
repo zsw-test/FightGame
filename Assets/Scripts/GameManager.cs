@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool Fightcountdown = false;
     public bool EndRound = false; //这一句是否结束
     public bool EndRoundExecute = false; //结束判断是否执行过
+    public bool GameEnd = false;
     public GameObject player1;
     public GameObject player2;
     
@@ -63,6 +64,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    IEnumerator endgame(String p)
+    {
+        cameracontroller.Winner = p;
+        yield return new WaitForSeconds(3f);
+        SenceManager.instance.ChangeSence(4);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -94,11 +101,13 @@ public class GameManager : MonoBehaviour
                 
                 if (SenceManager.instance.player1wincount == SenceManager.instance.wincount)
                 {
-                    Debug.Log("111");
+
                     //跳转到胜利场景
-                    result.SetActive(true);
+                    GameEnd = true;
+                    cameracontroller.Winner = "P1";
+                    
                     //SenceManager.instance.clear();
-                   
+
                 }
                 else
                 {
@@ -116,9 +125,11 @@ public class GameManager : MonoBehaviour
                 //result.SetActive(true);
                 if (SenceManager.instance.player2wincount == SenceManager.instance.wincount)
                 {
-                    result.SetActive(true);
-                    // SenceManager.instance.clear();
+                    GameEnd = true;
+                    cameracontroller.Winner = "P2";
                     
+                    // SenceManager.instance.clear();
+
                 }
                 else
                 {

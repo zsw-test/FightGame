@@ -49,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     public void renew()                                    //重新开始游戏  回到开始菜单
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()                                 //退出游戏  整体退出

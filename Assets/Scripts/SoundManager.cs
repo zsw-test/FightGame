@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     
-    public AudioClip jumpAudio, hitAudio, startAudio, guidAudio, chooseAudio, fightAudio,buttonAudio,hurtAudio,skillAudio,walkAudio,energyAudio,deathAudio;
+    public AudioClip jumpAudio, hitAudio, startAudio, guidAudio, chooseAudio, fightAudio,buttonAudio,hurtAudio,skillAudio,walkAudio,energyAudio,deathAudio,defenceAudio;
     public List<AudioClip> WalkAudio;
 
     AudioSource UIbuttonSource ;  //UI按键声音
@@ -15,7 +15,9 @@ public class SoundManager : MonoBehaviour
     AudioSource Player1Source;   //玩家1声音
     AudioSource Player2Source;   //玩家2声音
     AudioSource SenceSource;     //场景背景音乐声音
-
+    public float PlayerVolume = 1f;
+    public float ButtonVolume = 1f;
+    public float SenceVolume = 0.2f;
     private void Awake()
     {
         if (instance == null)
@@ -29,13 +31,46 @@ public class SoundManager : MonoBehaviour
         Player1Source = gameObject.AddComponent<AudioSource>();
         Player2Source = gameObject.AddComponent<AudioSource>();
         SenceSource = gameObject.AddComponent<AudioSource>();
-        SenceSource.volume = 0.2f;
-
+        SenceSource.volume = SenceVolume;
+        UIbuttonSource.volume = ButtonVolume;
+        Player1Source.volume = PlayerVolume;
+        Player2Source.volume = PlayerVolume;
     }
+    public void SetSenceVolume(float value)
+    {
+        SenceVolume = value;
+        SenceSource.volume = value;
+    }
+    public void SetButtonVolume(float value)
+    {
+        ButtonVolume = value;
+        UIbuttonSource.volume = value;
+    }
+    public void SetPlayerVolume(float value)
+    {
+        PlayerVolume = value;
+        Player1Source.volume = value;
+        Player2Source.volume = value;
+    }
+
     private void Start()
     {
          StartAudio();
         //ButtonAudio();
+    }
+    public void Defence1Audio()              //玩家1跳跃音效
+    {
+        instance.Player1Source.loop = false;
+
+        instance.Player1Source.clip = instance.defenceAudio;
+        instance.Player1Source.Play();
+    }
+    public void Defence2Audio()              //玩家1跳跃音效
+    {
+        instance.Player2Source.loop = false;
+
+        instance.Player2Source.clip = instance.defenceAudio;
+        instance.Player2Source.Play();
     }
     public  void Jump1Audio()              //玩家1跳跃音效
     {
@@ -149,12 +184,11 @@ public class SoundManager : MonoBehaviour
 
     public  void Energy1Audio()
     {
-        instance.Player2Source.loop = false;
+        instance.Player2Source.loop = true;
         instance.Player1Source.clip = instance.energyAudio;
         instance.Player1Source.Play();
     }
-
-    public  void Energy2Audio()
+    public void Energy2Audio()
     {
         instance.Player2Source.loop = false;
         instance.Player2Source.clip = instance.energyAudio;
