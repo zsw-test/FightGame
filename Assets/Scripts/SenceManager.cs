@@ -11,6 +11,7 @@ public class SenceManager : MonoBehaviour
     public int player2wincount;
     public string player1name;
     public string player2name;
+    public string winnerName;
     public int wincount = 3;
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,10 @@ public class SenceManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
 
     }
     public void clear()
@@ -33,6 +38,7 @@ public class SenceManager : MonoBehaviour
         player2wincount = 0;
         player1name = "";
         player2name = "";
+        winnerName = "";
     }
     // Update is called once per frame
     void Update()
@@ -67,6 +73,10 @@ public class SenceManager : MonoBehaviour
         if (num == 0||num==1)
         {
             instance.clear();
+            if(num==0)
+            SoundManager.instance.StartAudio();
+            if(num==1)
+            SoundManager.instance.ChooseAudio();
         }
         SceneManager.LoadScene(num);
         

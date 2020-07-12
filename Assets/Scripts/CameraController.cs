@@ -106,11 +106,11 @@ public class CameraController : MonoBehaviour
                     {
                         timer = 3f;
                         if (GameManager.instance.GameEnd)
-                            SenceManager.instance.ChangeSence(4);
+                            SenceManager.instance.ChangeSence(5);
                         else
                         {
                             CMV.SetActive(true);
-                            SenceManager.instance.ChangeSence(3);
+                            SenceManager.instance.ChangeSence(4);
                         }
                     }
                 }
@@ -128,11 +128,11 @@ public class CameraController : MonoBehaviour
                     {
                         timer = 3f;
                         if (GameManager.instance.GameEnd)
-                            SenceManager.instance.ChangeSence(4);
+                            SenceManager.instance.ChangeSence(5);
                         else
                         {
                             CMV.SetActive(true);
-                            SenceManager.instance.ChangeSence(3);
+                            SenceManager.instance.ChangeSence(4);
                         }
                     }
                 }
@@ -146,7 +146,7 @@ public class CameraController : MonoBehaviour
                     if (timer <= 0)
                     {
                         timer = 2f;
-                        SenceManager.instance.ChangeSence(3);
+                        SenceManager.instance.ChangeSence(4);
                     }
                 }
             }

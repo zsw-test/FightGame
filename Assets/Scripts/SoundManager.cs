@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     
-    public AudioClip jumpAudio, hitAudio, startAudio, guidAudio, chooseAudio, fightAudio,buttonAudio,hurtAudio,skillAudio,walkAudio,energyAudio,deathAudio,defenceAudio;
+    public AudioClip jumpAudio, hitAudio, startAudio, guidAudio, chooseAudio, fightAudio,buttonAudio,hurtAudio,skillAudio,walkAudio,energyAudio,deathAudio,defenceAudio,winAudio;
     public List<AudioClip> WalkAudio;
 
     AudioSource UIbuttonSource ;  //UI按键声音
@@ -24,6 +24,10 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
 
 
@@ -132,7 +136,12 @@ public class SoundManager : MonoBehaviour
         instance.SenceSource.loop = true;
         instance.SenceSource.Play();
     }
-
+    public void WinAudio()
+    {
+        instance.SenceSource.clip = instance.winAudio;
+        instance.SenceSource.loop = true;
+        instance.SenceSource.Play();
+    }
     public void ButtonAudio()
     {
         instance.UIbuttonSource.loop = false;

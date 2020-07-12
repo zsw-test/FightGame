@@ -47,10 +47,21 @@ MonoBehaviour:
   hitAudio: {fileID: 8300000, guid: 901f43f4a9abb6d43b9cd3065456a849, type: 3}
   startAudio: {fileID: 8300000, guid: d91e2bd52379d224695f2a2a588dbe72, type: 3}
   guidAudio: {fileID: 8300000, guid: 661413dd65ac6684d8230c7f2b3f9439, type: 3}
-  chooseAudio: {fileID: 8300000, guid: 845e705803b12b141a1a5c080fa0592a, type: 3}
+  chooseAudio: {fileID: 8300000, guid: 8636eaea904183a4bb323b2fabaa49bf, type: 3}
   fightAudio: {fileID: 8300000, guid: db2cc16c5dc9c0f409ce81f540f92383, type: 3}
   buttonAudio: {fileID: 8300000, guid: a2b2c8e205d534849ba0af50695df881, type: 3}
   hurtAudio: {fileID: 8300000, guid: 9ef03a91c4ef5c34f827f73fe44ac68a, type: 3}
   skillAudio: {fileID: 8300000, guid: 7e825a44fb46c3448a7f40c1a3a3f425, type: 3}
   walkAudio: {fileID: 8300000, guid: 12f4b78d5e91bdc458ff509a05a0e967, type: 3}
-  energyAudio: {fileID: 8300000, guid: 6fd8bcd95e738924aa12918170988b34, type: 3}
+  energyAudio: {fileID: 8300000, guid: b2915429c62f0304a9acd56b9e96cc33, type: 3}
+  deathAudio: {fileID: 8300000, guid: bd1bb5a914d2e954db96198ad86fa227, type: 3}
+  defenceAudio: {fileID: 8300000, guid: f6c04cccf150ad74a9103f975f944a93, type: 3}
+  winAudio: {fileID: 8300000, guid: d1e789189b7868345aec3fdaf723f9d9, type: 3}
+  WalkAudio:
+  - {fileID: 8300000, guid: ad1fdd5a9ffe856498d9f09ecca0a7f3, type: 3}
+  - {fileID: 8300000, guid: dc75d9ef2a7bcce4ead5b352e9e7e3bd, type: 3}
+  - {fileID: 8300000, guid: 44ad9bcdfcabe414fb28e9d2c69ac382, type: 3}
+  - {fileID: 8300000, guid: 70bf563c2d1997c46b6338744a5095f8, type: 3}
+  PlayerVolume: 0.5
+  ButtonVolume: 0.5
+  SenceVolume: 0.2

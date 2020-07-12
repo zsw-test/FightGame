@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ public class Player02Controller : MonoBehaviour
     public float JumpForce = 20f;
     public int dashSpeed = 30;
     public float dashTime = 0.2f;
-    public float DefenceSpeed = 2f;
+    //public float DefenceSpeed = 2f;
     public float CurSpeed = 0;
-    public bool isGround, isJump, isDashing, defence, death, isskill1,isskill2, isattack, isbreakout, ishurt, moveable = true;
+    public bool isGround, isJump, isDashing, defence, death, isskill1,isskill2, isattack, isbreakout, ishurt, moveable = true,attackable = true;
     public int hitCount = 0;
     private Rigidbody2D rb;
     private CapsuleCollider2D BodyCollider;
@@ -58,56 +59,60 @@ public class Player02Controller : MonoBehaviour
         {
             jumpPressed = false;
             defence = true;
-            CurSpeed = DefenceSpeed;
+            CurSpeed = 0;
         }
         else
         {
             defence = false;
             CurSpeed = RunSpeed;
         }
-        if ((Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) && isGround)
+        if(attackable)
         {
-
-            if (dashTimeLeft <= 0)
+            if ((Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) && isGround&&!defence)
             {
-                isDashing = true;
-                dashTimeLeft = dashTime;
+
+                if (dashTimeLeft <= 0)
+                {
+                    isDashing = true;
+                    dashTimeLeft = dashTime;
+                }
+            }
+            if ((Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) && isGround)
+            {
+                isskill1 = true;
+                moveable = false;
+            }
+            if ((Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) && isGround)
+            {
+                isskill2 = true;
+                moveable = false;
+            }
+            if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && isGround)
+            {
+                //attack();
+                if (!isattack)
+                    hitCount++;
+                isattack = true;
+                moveable = false;
+
+            }
+            if ((Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) && atr.CurrentEnergy == 3.0f && isbreakout == false)
+            {
+                SoundManager.instance.Energy1Audio();
+                atr.Breakout = true;
+                isbreakout = true;
+                atr.CurrentEnergy -= 3.0f;
             }
         }
-        if ((Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) && isGround)
-        {
-            isskill1 = true;
-            moveable = false;
-        }
-        if ((Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) && isGround)
-        {
-            isskill2 = true;
-            moveable = false;
-        }
-        if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && isGround)
-        {
-            //attack();
-            if (!isattack)
-                hitCount++;
-            isattack = true;
-            moveable = false;
-
-        }
-        if ((Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6)) && atr.CurrentEnergy == 3.0f && isbreakout == false)
-        {
-            SoundManager.instance.Energy1Audio();
-            atr.Breakout = true;
-            isbreakout = true;
-            atr.CurrentEnergy -= 3.0f;
-        }
+       
         atr.Defence = defence;
 
     }
     void ShotKinfeWave()
     {
 
-        Transform temp = Instantiate(KnifeWave, new Vector3(AttackPoint.position.x, AttackPoint.position.y + 1f, AttackPoint.position.z), Quaternion.identity).GetComponent<Transform>();
-        temp.localScale = new Vector3(-transform.localScale.x, 1, 1);
+        Transform temp = Instantiate(KnifeWave, new Vector3(AttackPoint.position.x, AttackPoint.position.y, AttackPoint.position.z), Quaternion.identity).GetComponent<Transform>();
+        temp.localScale = new Vector3(-transform.localScale.x*Math.Abs(temp.localScale.x), temp.localScale.y, temp.localScale.z);
         //Instantiate(KnifeWave, AttackPoint.position, transform.rotation);
     }
     IEnumerator StartShiled()
@@ -127,26 +132,7 @@ public class Player02Controller : MonoBehaviour
 
         SwitchAnim();
     }
-    void attack()
-    {
-
-
-        //if (hitCount == 0)
-        //{
-        //    hitCount = 1;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-        //else if (stateInfo.IsName("Atk1") && hitCount == 1 && stateInfo.normalizedTime < 0.8f)
-        //{
-        //    hitCount = 2;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-        //else if (stateInfo.IsName("Atk2") && hitCount == 2 && stateInfo.normalizedTime < 0.8f)
-        //{
-        //    hitCount = 3;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-    }
+   
 
     void Jump()//跳跃
     {
@@ -397,7 +383,7 @@ public class Player02Controller : MonoBehaviour
                 {
                     rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, 0f);
                     dashTimeLeft -= Time.deltaTime;
-                    //  ShadowPool.instance.outPool();
+                    ShadowPool.instance.outPool(gameObject.tag);
                     Debug.Log(dashTimeLeft);
                     BodyCollider.isTrigger = true;//dash的时候设置自己的碰撞体不能被碰到
                     rb.gravityScale = 0;

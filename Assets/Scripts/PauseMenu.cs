@@ -1,16 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
     public GameObject pauseMenu;
-    private bool flag = false;
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+        if(instance==null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     // Update is called once per frame
@@ -18,15 +28,14 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))                  //按ESC按键进行暂停
         {
-            if (!flag)
+            SoundManager.instance.ButtonAudio();
+            if(pauseMenu.activeSelf)
             {
-                PauseGame();
-                flag = true;
+                Resume();
             }
             else
             {
-                Resume();
-                flag = false;
+                PauseGame();
             }
 
 
@@ -48,8 +57,9 @@ public class PauseMenu : MonoBehaviour
 
     public void renew()                                    //重新开始游戏  回到开始菜单
     {
-        SceneManager.LoadScene(0);
+        SenceManager.instance.ChangeSence(0);
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
     }
 
     public void QuitGame()                                 //退出游戏  整体退出

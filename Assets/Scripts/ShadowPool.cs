@@ -6,6 +6,7 @@ public class ShadowPool : MonoBehaviour
 {
     public static ShadowPool instance;
     public int count;
+    public string playertag = "Player1";
     public GameObject Shadowpre;
 
     private Queue<GameObject>  shadowspool = new Queue<GameObject>();
@@ -31,8 +32,10 @@ public class ShadowPool : MonoBehaviour
     }
 
 
-    public GameObject outPool()
+    public GameObject outPool(string playertag)
     {
+        instance.playertag = playertag;
+        Debug.Log(instance.playertag);
         if(shadowspool.Count==0)
         {
             Fullfillpool();

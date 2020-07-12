@@ -26,8 +26,9 @@ public class GameManager : MonoBehaviour
     public bool GameEnd = false;
     public GameObject player1;
     public GameObject player2;
-    
+    public GameObject[] players;
     public GameObject result;
+    private string playerPath = "";
     public Transform SwapPoint1;
     public Transform SwapPoint2;
     public GameObject p1Obstacle;
@@ -39,28 +40,26 @@ public class GameManager : MonoBehaviour
     //public int player2wincount=0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        instance = this;
+
+
         cameracontroller =GameObject.Find("Camera").GetComponent<CameraController>();
         StartText.enabled = false;
         var total = SenceManager.instance.player1wincount + 1 + SenceManager.instance.player2wincount;
         string RoundName = "第" + total + "局";
         StartText.text = RoundName.ToString();
+        GameObject p1 = Resources.Load(playerPath + SenceManager.instance.player1name, typeof(GameObject)) as GameObject;
+        GameObject p2 = Resources.Load(playerPath + SenceManager.instance.player2name, typeof(GameObject))as GameObject;
+        Debug.Log(playerPath + SenceManager.instance.player1name);
+        Debug.Log(p1.name);
+        Instantiate(p1, SwapPoint1);
+        Instantiate(p2, SwapPoint2);
+        //设置角色不能进行攻击
+        SwapPoint1.GetComponentInChildren<Player01Controller>().attackable = false;
+        SwapPoint2.GetComponentInChildren<Player02Controller>().attackable = false;
 
-        
-
-        Instantiate(player1, SwapPoint1);
-        Instantiate(player2, SwapPoint2);
-        //设置角色不能移动
-        //SwapPoint1.GetComponentInChildren<Player01Controller>().moveable = false;
-        //SwapPoint2.GetComponentInChildren<Player02Controller>().moveable = false;
-
-
-    }
-    private void Awake()
-    {
-
-        instance = this;
 
     }
 
@@ -68,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         cameracontroller.Winner = p;
         yield return new WaitForSeconds(3f);
-        SenceManager.instance.ChangeSence(4);
+        SenceManager.instance.ChangeSence(5);
     }
     // Update is called once per frame
     void Update()
@@ -104,6 +103,7 @@ public class GameManager : MonoBehaviour
 
                     //跳转到胜利场景
                     GameEnd = true;
+                    SenceManager.instance.winnerName = SenceManager.instance.player1name.Replace("P1", "");
                     cameracontroller.Winner = "P1";
                     
                     //SenceManager.instance.clear();
@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
                 if (SenceManager.instance.player2wincount == SenceManager.instance.wincount)
                 {
                     GameEnd = true;
+                    SenceManager.instance.winnerName = SenceManager.instance.player2name.Replace("P2", "");
                     cameracontroller.Winner = "P2";
                     
                     // SenceManager.instance.clear();
@@ -140,7 +141,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                SenceManager.instance.ChangeSence(3);
+                SenceManager.instance.ChangeSence(4);
                 
             }
         }
@@ -173,8 +174,8 @@ public class GameManager : MonoBehaviour
             //然后角色可以移动了
 
 
-            SwapPoint1.GetComponentInChildren<Player01Controller>().moveable = true;
-            SwapPoint2.GetComponentInChildren<Player02Controller>().moveable = true;
+            SwapPoint1.GetComponentInChildren<Player01Controller>().attackable = true;
+            SwapPoint2.GetComponentInChildren<Player02Controller>().attackable = true;
 
             if (timertick<=0)
             {

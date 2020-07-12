@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class shadow : MonoBehaviour
 {
-    public SpriteRenderer thisSprite;
+    private SpriteRenderer thisSprite;
 
     [Header("残影显示参数")]
     public float displayTime;
     public float alpha;
     public float Multiple;
     public float startTime;
-    public string playerTag;
+
+
+
 
     private void OnEnable()
     {
-        thisSprite = GetComponent<SpriteRenderer>();
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
-        thisSprite.sprite = player.GetComponent<SpriteRenderer>().sprite;
-        alpha = 1;
-        transform.position = player.transform.position;
-        transform.localScale = player.transform.localScale;
-        transform.rotation = player.transform.rotation;
-
-        startTime = Time.time;
+        if(!ShadowPool.instance.playertag.Equals(""))
+        {
+            thisSprite = GetComponent<SpriteRenderer>();
+            GameObject player = GameObject.FindGameObjectWithTag(ShadowPool.instance.playertag);
+            thisSprite.sprite = player.GetComponent<SpriteRenderer>().sprite;
+            alpha = 1;
+            thisSprite.flipX = true;
+            transform.position = player.transform.position;
+            transform.localScale = player.transform.localScale;
+            transform.rotation = player.transform.rotation;
+            startTime = Time.time;
+        }
+       
         
     }
 

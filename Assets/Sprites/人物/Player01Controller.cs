@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ public class Player01Controller : MonoBehaviour
     public float JumpForce = 20f;
     public int dashSpeed = 30;
     public float dashTime = 0.2f;
-    public float DefenceSpeed = 2f;
+    //public float DefenceSpeed = 2f;
     public float CurSpeed = 0;
-    public bool isGround, isJump, isDashing, defence, death,isskill1,isskill2,isattack,isbreakout,ishurt,moveable=true;
+    public bool isGround, isJump, isDashing, defence, death,isskill1,isskill2,isattack,isbreakout,ishurt,moveable=true,attackable= true;
     public int hitCount = 0;
     private Rigidbody2D rb;
     private CapsuleCollider2D BodyCollider;
@@ -25,6 +26,7 @@ public class Player01Controller : MonoBehaviour
     private float ContinueAtkTimeTick = 0.5f;
     public Transform groundCheck;
     public Transform AttackPoint;
+   
     public LayerMask ground;
     public LayerMask Player2;
     public GameObject breakout;
@@ -67,51 +69,55 @@ public class Player01Controller : MonoBehaviour
         {
             jumpPressed = false;
             defence = true;
-            CurSpeed = DefenceSpeed;
+            CurSpeed = 0;
         }
         else
         {
             defence = false;
             CurSpeed = RunSpeed;
         }
-        if (Input.GetKeyDown(KeyCode.L) && isGround)
+        if(attackable)
         {
-
-            if (dashTimeLeft <= 0)
+            if (Input.GetKeyDown(KeyCode.L) && isGround&&!defence)
             {
-                isDashing = true;
-                dashTimeLeft = dashTime;
+
+                if (dashTimeLeft <= 0)
+                {
+                    isDashing = true;
+                    dashTimeLeft = dashTime;
+                }
             }
-        }
-        if(Input.GetKeyDown(KeyCode.I)&&isGround)
-        {
+            if (Input.GetKeyDown(KeyCode.I) && isGround)
+            {
+
+                isskill1 = true;
+                moveable = false;
+            }
+            if (Input.GetKeyDown(KeyCode.U) && isGround)
+            {
+
+                isskill2 = true;
+                moveable = false;
+            }
+            if (Input.GetKeyDown(KeyCode.J) && isGround)
+            {
+
+                //attack();
+                if (!isattack)
+                    hitCount++;
+                isattack = true;
+
+            }
+            if (Input.GetKeyDown(KeyCode.O) && atr.CurrentEnergy == 3.0f && isbreakout == false)
+            {
+                SoundManager.instance.Energy1Audio();
+                atr.Breakout = true;
+                isbreakout = true;
+                atr.CurrentEnergy -= 3.0f;
+            }
            
-            isskill1 = true;
-            moveable = false;
         }
-        if (Input.GetKeyDown(KeyCode.U) && isGround)
-        {
-
-            isskill2 = true;
-            moveable = false;
-        }
-        if (Input.GetKeyDown(KeyCode.J)&&isGround)
-        {
-          
-            //attack();
-            if (!isattack)
-                hitCount++;
-            isattack = true;
-
-        }
-        if(Input.GetKeyDown(KeyCode.O)&&atr.CurrentEnergy==3.0f&&isbreakout==false)
-        {
-            SoundManager.instance.Energy1Audio();
-            atr.Breakout = true;
-            isbreakout = true;
-            atr.CurrentEnergy -= 3.0f;
-        }
-       atr.Defence = defence;
+        atr.Defence = defence;
 
     }
     IEnumerator StartShiled()
@@ -132,26 +138,26 @@ public class Player01Controller : MonoBehaviour
 
         SwitchAnim();
     }
-    void attack()
-    {
-        
+    //void attack()
+    //{
 
-        //if (hitCount == 0)
-        //{
-        //    hitCount = 1;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-        //else if (stateInfo.IsName("Atk1") && hitCount == 1 && stateInfo.normalizedTime < 0.8f)
-        //{
-        //    hitCount = 2;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-        //else if (stateInfo.IsName("Atk2") && hitCount == 2 && stateInfo.normalizedTime < 0.8f)
-        //{
-        //    hitCount = 3;
-        //    anim.SetInteger("attack", hitCount);
-        //}
-    }
+
+    //    if (hitCount == 0)
+    //    {
+    //        hitCount = 1;
+    //        anim.SetInteger("attack", hitCount);
+    //    }
+    //    else if (stateInfo.IsName("Atk1") && hitCount == 1 && stateInfo.normalizedTime < 0.8f)
+    //    {
+    //        hitCount = 2;
+    //        anim.SetInteger("attack", hitCount);
+    //    }
+    //    else if (stateInfo.IsName("Atk2") && hitCount == 2 && stateInfo.normalizedTime < 0.8f)
+    //    {
+    //        hitCount = 3;
+    //        anim.SetInteger("attack", hitCount);
+    //    }
+    //}
 
     void Jump()//跳跃
     {
@@ -181,10 +187,10 @@ public class Player01Controller : MonoBehaviour
     void  ShotKinfeWave()
     {
         
-            Transform  temp= Instantiate(KnifeWave,new Vector3(AttackPoint.position.x,AttackPoint.position.y+1f,AttackPoint.position.z) ,Quaternion.identity).GetComponent<Transform>();
-            temp.localScale = new Vector3(-transform.localScale.x,1,1);
-       
-        
+            Transform  temp= Instantiate(KnifeWave, AttackPoint.transform.position, Quaternion.identity).GetComponent<Transform>();
+         temp.localScale = new Vector3(-transform.localScale.x * Math.Abs(temp.localScale.x), temp.localScale.y, temp.localScale.z);
+
+
         //Instantiate(KnifeWave, AttackPoint.position, transform.rotation);
     }
     void SwitchAnim()//动画切换
@@ -439,7 +445,7 @@ public class Player01Controller : MonoBehaviour
                 {
                     rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, 0f);
                     dashTimeLeft -= Time.deltaTime;
-                    //  ShadowPool.instance.outPool();
+                     ShadowPool.instance.outPool(gameObject.tag);
                     Debug.Log(dashTimeLeft);
                     BodyCollider.isTrigger = true;//dash的时候设置自己的碰撞体不能被碰到
                     rb.gravityScale = 0;
@@ -467,7 +473,7 @@ public class Player01Controller : MonoBehaviour
     }
     public void Attack()
     {
-        
+       
         var attackperson =  Physics2D.OverlapCircle(AttackPoint.position, 1f, Player2);
         if(attackperson != null)
         {
@@ -477,6 +483,7 @@ public class Player01Controller : MonoBehaviour
                 attackperson.GetComponent<PlayerAttribute>().GetHurt(atr.MyAttackDamage());
                 Debug.Log(attackperson.tag);
                 attackperson.GetComponent<Player02Controller>().ishurt = true;
+               
             }
         }
     }

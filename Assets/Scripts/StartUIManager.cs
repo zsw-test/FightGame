@@ -7,6 +7,7 @@ using DG.Tweening;
 public class StartUIManager : MonoBehaviour
 {
     public GameObject optionMenu;
+    public GameObject explainMenu;
     public Slider s1;
     public Slider s2;
     public Slider s3;
@@ -32,6 +33,14 @@ public class StartUIManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void explainMenuShow()
+    {
+        explainMenu.gameObject.transform.DOLocalMoveY(0, 0.3f);
+    }
+    public void explainMenuHide()
+    {
+        explainMenu.gameObject.transform.DOLocalMoveY(1000, 0.3f);
     }
     public void optionMenuShow()
     {

@@ -135,7 +135,7 @@ public class FinalMovement : MonoBehaviour
                     }
                     rb.velocity = new Vector2(gameObject.transform.localScale.x * dashSpeed, rb.velocity.y);
                     dashTimeLeft -= Time.deltaTime;
-                    ShadowPool.instance.outPool();
+                  //  ShadowPool.instance.outPool();
                 }
                 else 
                 {   

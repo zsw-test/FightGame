@@ -1111,16 +1111,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d317617cd4d1a49ba34933e699b114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1s:
+  PlayerSprites:
   - {fileID: 21300000, guid: ad3a3dd41f04f9c4a94303797ba60db4, type: 3}
+  - {fileID: 21300000, guid: 40993e28c3c88124cbd52c64e43f2dc9, type: 3}
+  PlayerBGSprites:
   - {fileID: 21300000, guid: d9d75e4cb25169d47bb5d06136acf6cb, type: 3}
-  Player2s:
-  - {fileID: 21300000, guid: ad3a3dd41f04f9c4a94303797ba60db4, type: 3}
-  - {fileID: 21300000, guid: d9d75e4cb25169d47bb5d06136acf6cb, type: 3}
-  P1: {fileID: 144869426}
-  P2: {fileID: 1720809747}
+  - {fileID: 21300000, guid: 57adac1a635c98c44955a63ee92261c4, type: 3}
+  PlayerIcons:
+  - {fileID: 21300000, guid: 83b729f6ed1f2144cafc293d031c4602, type: 3}
+  - {fileID: 21300000, guid: f165722d9baf3014b885ccc12daee9c1, type: 3}
+  P1Image: {fileID: 144869426}
+  P2Image: {fileID: 1720809747}
+  P1Bg: {fileID: 510668625}
+  P2Bg: {fileID: 948110144}
   p1text: {fileID: 1356391507}
   p2text: {fileID: 98210786}
+  P1icon: {fileID: 1437593440}
+  P2icon: {fileID: 1188692404}
   P1ChooseIndex: 0
   P2ChooseIndex: 0
   b1: {fileID: 129109467}
