@@ -10,10 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public CameraController cameracontroller;
 
-    public Slider Player1Health;
-    public Slider Player1Magic;
-    public Slider Player2Health;
-    public Slider Player2Magic;
     public Text StartText;
     public Text FightText;
     public int StartTimer = 4;
@@ -43,7 +39,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-
+        if (SenceManager.instance.Rountime.Equals("∞"))
+            FightText.text = "∞";
+        else  FightTimer = int.Parse(SenceManager.instance.Rountime);
+        
 
         cameracontroller =GameObject.Find("Camera").GetComponent<CameraController>();
         StartText.enabled = false;
@@ -57,8 +56,8 @@ public class GameManager : MonoBehaviour
         Instantiate(p1, SwapPoint1);
         Instantiate(p2, SwapPoint2);
         //设置角色不能进行攻击
-        SwapPoint1.GetComponentInChildren<Player01Controller>().attackable = false;
-        SwapPoint2.GetComponentInChildren<Player02Controller>().attackable = false;
+        //SwapPoint1.GetComponentInChildren<PlayerController>().attackable = false;
+        //SwapPoint2.GetComponentInChildren<PlayerController>().attackable = false;
 
 
     }
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayerAttrUI();
+  
         if(Startcountdown)
         {
             StartCountDown();
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                SenceManager.instance.ChangeSence(4);
+                SenceManager.instance.ChangeSence(SenceManager.instance.FightSence);
                 
             }
         }
@@ -174,14 +173,15 @@ public class GameManager : MonoBehaviour
             //然后角色可以移动了
 
 
-            SwapPoint1.GetComponentInChildren<Player01Controller>().attackable = true;
-            SwapPoint2.GetComponentInChildren<Player02Controller>().attackable = true;
+            SwapPoint1.GetComponentInChildren<PlayerController>().attackable = true;
+            SwapPoint2.GetComponentInChildren<PlayerController>().attackable = true;
 
             if (timertick<=0)
             {
                 StartText.enabled = false;
                 Startcountdown = false;
                 //战斗倒计时
+                if(!SenceManager.instance.Rountime.Equals("∞")) //如果 是无穷时间就不用战斗倒计时了
                 Fightcountdown = true;
             }
            
@@ -209,15 +209,6 @@ public class GameManager : MonoBehaviour
             EndRound = true;
             
         }
-    }
-    public void UpdatePlayerAttrUI()
-    {
-        Player1Health.value = (float)SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentBlood / SwapPoint1.GetComponentInChildren<PlayerAttribute>().Blood;
-        Player2Health.value = (float)SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentBlood / SwapPoint2.GetComponentInChildren<PlayerAttribute>().Blood;
-        Player1Magic.value = (float)SwapPoint1.GetComponentInChildren<PlayerAttribute>().CurrentEnergy / SwapPoint1.GetComponentInChildren<PlayerAttribute>().Energy;
-        Player2Magic.value = (float)SwapPoint2.GetComponentInChildren<PlayerAttribute>().CurrentEnergy / SwapPoint2.GetComponentInChildren<PlayerAttribute>().Energy;
-
-
     }
 
     public void RoundEnd()

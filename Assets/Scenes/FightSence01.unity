@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 10
+  playertag: Player1
   Shadowpre: {fileID: 1000756296907350670, guid: 4c5d97c0043953844b3aeab55dbcfe62,
     type: 3}
 --- !u!4 &840683422
@@ -2181,6 +2182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 10
+  playertag: Player1
   Shadowpre: {fileID: 172651764977293216, guid: 6c0acd1ed192ec042bbb345184aafc14,
     type: 3}
 --- !u!4 &1099362636
@@ -2291,7 +2293,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 7.070411
+  orthographic size: 7.0686746
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2369,10 +2371,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p1: {fileID: 1179626892}
   p2: {fileID: 426546175}
-  timer: 2
+  timer: 2.789992
   CMV: {fileID: 1923421714}
   speed: 128
   timertick: 2
+  Winner: 
 --- !u!1 &1418489574
 GameObject:
   m_ObjectHideFlags: 0

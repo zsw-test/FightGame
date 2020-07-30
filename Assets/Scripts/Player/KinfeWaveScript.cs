@@ -24,14 +24,14 @@ public class KinfeWaveScript : MonoBehaviour
         {
             collision.GetComponent<PlayerAttribute>().GetHurt(GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerAttribute>().MySkillDamage()); ;
             Debug.Log(collision.tag);
-            collision.GetComponent<Player01Controller>().ishurt = true;
+            collision.GetComponent<PlayerController>().ishurt = true;
             Destroy(gameObject);
         }
         else if(collision.tag.Equals("Player2"))
         {
             collision.GetComponent<PlayerAttribute>().GetHurt(GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerAttribute>().MySkillDamage());
             Debug.Log(collision.tag);
-            collision.GetComponent<Player02Controller>().ishurt = true;
+            collision.GetComponent<PlayerController>().ishurt = true;
             Destroy(gameObject);
         }
         Destroy(gameObject);

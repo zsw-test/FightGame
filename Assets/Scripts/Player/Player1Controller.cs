@@ -23,6 +23,15 @@ public class Player1Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
+        StateContext context = new StateContext();
+        context.MState = new StateIdle(context);
+        context.DoAction();
+        context.DoAction();
+
+
+
         rb = GetComponent<Rigidbody2D>();
         BodyCollider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();

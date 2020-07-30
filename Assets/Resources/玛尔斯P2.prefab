@@ -233,9 +233,9 @@ GameObject:
   - component: {fileID: 8187606628858510479}
   - component: {fileID: 8187606628858510472}
   - component: {fileID: 8187606628858510474}
-  - component: {fileID: 8187606628858510473}
   - component: {fileID: 6430462305520061879}
   - component: {fileID: 846305054199286619}
+  - component: {fileID: 7603931352262432047}
   m_Layer: 10
   m_Name: "\u739B\u5C14\u65AFP2"
   m_TagString: Player2
@@ -393,52 +393,6 @@ MonoBehaviour:
   DefenceRate: 0.1
   Death: 0
   Defence: 0
---- !u!114 &8187606628858510473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8187606628858510475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6797a3e92fd1c44b838f9281c54cd80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RunSpeed: 8
-  JumpForce: 20
-  dashSpeed: 30
-  dashTime: 0.2
-  CurSpeed: 0
-  isGround: 0
-  isJump: 0
-  isDashing: 0
-  defence: 0
-  death: 0
-  isskill1: 0
-  isskill2: 0
-  isattack: 0
-  isbreakout: 0
-  ishurt: 0
-  moveable: 1
-  attackable: 1
-  hitCount: 0
-  jumpPressed: 0
-  jumpCount: 0
-  groundCheck: {fileID: 8187606627395477817}
-  AttackPoint: {fileID: 8187606628275003169}
-  WavePoint: {fileID: 0}
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
-  Player2:
-    serializedVersion: 2
-    m_Bits: 512
-  breakout: {fileID: 1043369860960326717}
-  breakouttimertick: 10
-  shield: {fileID: 3800985664931256996}
-  KnifeWave: {fileID: 2367030240889681484, guid: d643e3238ff8eda4189795c49a69ec5f,
-    type: 3}
 --- !u!114 &6430462305520061879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +422,50 @@ MonoBehaviour:
   Timer: 0.5
   preHurtTime: 0
   TickNum: 0
+--- !u!114 &7603931352262432047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8187606628858510475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc9cde71fad4ba46b73b4222977fc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunSpeed: 10
+  JumpForce: 20
+  dashSpeed: 30
+  dashTime: 0.2
+  CurSpeed: 0
+  isGround: 0
+  isJump: 0
+  isDashing: 0
+  defence: 0
+  death: 0
+  isskill1: 0
+  isskill2: 0
+  isattack: 0
+  isbreakout: 0
+  ishurt: 0
+  moveable: 1
+  attackable: 1
+  hitCount: 0
+  jumpPressed: 0
+  jumpCount: 0
+  groundCheck: {fileID: 8187606627395477817}
+  AttackPoint: {fileID: 8187606628275003169}
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  PlayerAnother:
+    serializedVersion: 2
+    m_Bits: 512
+  breakout: {fileID: 1043369860960326717}
+  breakouttimertick: 10
+  shield: {fileID: 3800985664931256996}
+  Wave: {fileID: 2367030240889681484, guid: d643e3238ff8eda4189795c49a69ec5f, type: 3}
 --- !u!1 &8739308007951988094
 GameObject:
   m_ObjectHideFlags: 0

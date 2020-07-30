@@ -8,6 +8,8 @@ public class StartUIManager : MonoBehaviour
 {
     public GameObject optionMenu;
     public GameObject explainMenu;
+    public GameObject[] curs;
+    int curindex = 0;
     public Slider s1;
     public Slider s2;
     public Slider s3;
@@ -28,11 +30,33 @@ public class StartUIManager : MonoBehaviour
         t4.onValueChanged.AddListener(muteAll);
     }
 
-
+    public void UIbuttonOnStart(Transform transform)
+    {
+        transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f);
+    }
+    public void UIbuttonOnExit(Transform transform)
+    {
+        transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            UIbuttonOnExit(curs[curindex].transform);
+            curindex--;
+            if (curindex < 0) curindex = curs.Length - 1;
+            UIbuttonOnStart(curs[curindex].transform);
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            UIbuttonOnExit(curs[curindex].transform);
+            curindex++;
+            curindex %= curs.Length;
+            UIbuttonOnStart(curs[curindex].transform);
+
+        }
+     
     }
     public void explainMenuShow()
     {

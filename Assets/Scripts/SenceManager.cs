@@ -13,6 +13,9 @@ public class SenceManager : MonoBehaviour
     public string player2name;
     public string winnerName;
     public int wincount = 3;
+    public int FightSence= 6;
+    public string Rountime = "60";
+    public int EndSence = 5;
     // Start is called before the first frame update
     void Start()
     {

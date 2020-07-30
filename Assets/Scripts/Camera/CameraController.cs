@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     public float timertick =2f;
     private bool p1showdown;
     private bool p2showdown;
-    private bool StartShow =false;
     public static CameraController instance;
     public string Winner="";
     // Start is called before the first frame update
@@ -106,11 +105,11 @@ public class CameraController : MonoBehaviour
                     {
                         timer = 3f;
                         if (GameManager.instance.GameEnd)
-                            SenceManager.instance.ChangeSence(5);
+                            SenceManager.instance.ChangeSence(SenceManager.instance.EndSence);
                         else
                         {
                             CMV.SetActive(true);
-                            SenceManager.instance.ChangeSence(4);
+                            SenceManager.instance.ChangeSence(SenceManager.instance.FightSence);
                         }
                     }
                 }
@@ -128,11 +127,11 @@ public class CameraController : MonoBehaviour
                     {
                         timer = 3f;
                         if (GameManager.instance.GameEnd)
-                            SenceManager.instance.ChangeSence(5);
+                            SenceManager.instance.ChangeSence(SenceManager.instance.EndSence);
                         else
                         {
                             CMV.SetActive(true);
-                            SenceManager.instance.ChangeSence(4);
+                            SenceManager.instance.ChangeSence(SenceManager.instance.FightSence);
                         }
                     }
                 }
@@ -146,7 +145,7 @@ public class CameraController : MonoBehaviour
                     if (timer <= 0)
                     {
                         timer = 2f;
-                        SenceManager.instance.ChangeSence(4);
+                        SenceManager.instance.ChangeSence(SenceManager.instance.FightSence);
                     }
                 }
             }

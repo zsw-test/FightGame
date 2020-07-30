@@ -20,7 +20,7 @@ public class GuideSenceScript : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
-            SenceManager.instance.ChangeSence(3);
+            SenceManager.instance.ChangeSence(4);
             SoundManager.instance.FightAudio();
         }
         

@@ -33,12 +33,14 @@ public class Choosemanager : MonoBehaviour
         P2icon.sprite = PlayerIcons[P2ChooseIndex];
         b1.onClick.AddListener(DisableB1);
         b2.onClick.AddListener(DisableB2);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        
+        if (Input.GetKeyDown(KeyCode.A))
         {
             SoundManager.instance.ButtonAudio();
             prePlayer1();

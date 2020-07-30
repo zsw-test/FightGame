@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2367030240889681485}
   - component: {fileID: 7479936401167723094}
   - component: {fileID: 430152197102394270}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WindWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
