@@ -7,32 +7,34 @@ public class FightVSUImanager : MonoBehaviour
 {
     public Image P1vs;
     public Image P2vs;
+    public GameObject P1Text;
+    public GameObject P2Text;
     public Image VS;
     public Sprite[] VSsprites;
     // Start is called before the first frame update
     void Start()
     {
-        //string p1name = SenceManager.instance.player1name.Replace("P1", "");
-        //string p2name = SenceManager.instance.player2name.Replace("P2", "");
-        //if (p1name.Equals("苏利耶"))
-        //{
-        //    P1vs.sprite = VSsprites[0];
-        //    P1vs.transform.localScale = new Vector2(-1, 1);
-        //}
-        //else if (p1name.Equals("玛尔斯"))
-        //{
-        //    P1vs.sprite = VSsprites[1];
-        //}
-        //if (p2name.Equals("苏利耶"))
-        //{
-        //    P2vs.sprite = VSsprites[0];
+        string p1name = SenceManager.instance.player1name.Replace("P1", "");
+        string p2name = SenceManager.instance.player2name.Replace("P2", "");
+        if (p1name.Equals("苏利耶"))
+        {
+            P1vs.sprite = VSsprites[0];
+            P1vs.transform.localScale = new Vector2(-1, 1);
+        }
+        else if (p1name.Equals("玛尔斯"))
+        {
+            P1vs.sprite = VSsprites[1];
+        }
+        if (p2name.Equals("苏利耶"))
+        {
+            P2vs.sprite = VSsprites[0];
 
-        //}
-        //else if (p2name.Equals("玛尔斯"))
-        //{
-        //    P2vs.sprite = VSsprites[1];
-        //    P2vs.transform.localScale = new Vector2(-1, 1);
-        //}
+        }
+        else if (p2name.Equals("玛尔斯"))
+        {
+            P2vs.sprite = VSsprites[1];
+            P2vs.transform.localScale = new Vector2(-1, 1);
+        }
 
         StartCoroutine(nextSence());
         
@@ -40,8 +42,10 @@ public class FightVSUImanager : MonoBehaviour
      IEnumerator nextSence()
     {
         P1vs.transform.DOLocalMoveX(-200, 0.3f,true);
+        P1Text.transform.DOLocalMoveX(-150, 0.3f, true);
         yield return new WaitForSeconds(0.3f);
         P2vs.transform.DOLocalMoveX(200, 0.3f);
+        P2Text.transform.DOLocalMoveX(150, 0.3f, true);
         yield return new WaitForSeconds(0.3f);
         VS.transform.DOLocalMoveY(0, 0.2f);
         yield return new WaitForSeconds(3f);

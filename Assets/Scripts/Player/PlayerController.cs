@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public float dashCdtime = 2f;
     public float dashTimeLeft = 0;
 
+    [Header("skill1参数")]
+    public float Skill1Cdtime =5f;
+    public float LastSkill1time = 0;
+
     [Header("skill2参数")]
     public float Skill2Cdtime = 3f;
     public float LastSkill2time = 0;
@@ -21,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public float CurSpeed = 0;
 
     [Header("人物状态")]
-    public bool isGround, isJump, isDashing, defence, death, isskill1, isskill2, isattack, isbreakout, ishurt, ishurtShiled , istetanic,moveable = true, attackable = true;
+    public bool isGround, isJump, isDashing, defence, death, isskill1, isskill2, isattack, isbreakout, ishurtfly, ishurt, ishurtShiled , istetanic,moveable = true, attackable = true;
     public int hitCount = 0;
     protected Rigidbody2D rb;
     protected CapsuleCollider2D BodyCollider;
@@ -117,14 +122,29 @@ public class PlayerController : MonoBehaviour
                     GetComponent<PlayerUIController>().CdImage1.fillAmount = 1;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.I) && isGround)
+            if (Input.GetKeyDown(KeyCode.I) && isGround&&!defence)
             {
 
-                isskill1 = true;
-                moveable = false;
-               
+                //如果第一次释放  就可以直接用
+                if (LastSkill1time == 0)
+                {
+                    isskill1 = true;
+                    moveable = false;
+                    LastSkill1time = Time.time;
+                    //设置UI的覆盖度为1
+                    GetComponent<PlayerUIController>().CdImage3.fillAmount = 1;
+                }
+                //如果不是第一次 那么要过了cd的时间才可以用dash
+                if (Time.time >= LastSkill1time + Skill1Cdtime)
+                {
+                    isskill1= true;
+                    moveable = false;
+                    LastSkill1time = Time.time;
+                    GetComponent<PlayerUIController>().CdImage3.fillAmount = 1;
+                }
+
             }
-            if (Input.GetKeyDown(KeyCode.U) && isGround)
+            if (Input.GetKeyDown(KeyCode.U) && isGround && !defence)
             {
 
                
@@ -146,7 +166,7 @@ public class PlayerController : MonoBehaviour
                     GetComponent<PlayerUIController>().CdImage2.fillAmount = 1;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.J) && isGround)
+            if (Input.GetKeyDown(KeyCode.J) && isGround && !defence)
             {
 
                 //attack();
@@ -160,7 +180,7 @@ public class PlayerController : MonoBehaviour
                 atr.Breakout = true;
                 isbreakout = true;
                 atr.CurrentEnergy -= 3.0f;
-                atr.BreakOut(breakout.GetComponent<SpriteRenderer>().sprite, 10);
+                atr.BreakOut(breakout.GetComponent<BreakAttr>().Breaksprite, 10);
                 SoundManager.instance.Energy1Audio();
             }
 
@@ -220,12 +240,27 @@ public class PlayerController : MonoBehaviour
                     GetComponent<PlayerUIController>().CdImage1.fillAmount = 1;
                 }
             }
-            if ((Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) && isGround)
+            if ((Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) && isGround && !defence)
             {
-                isskill1 = true;
-                moveable = false;
+                //如果第一次释放  就可以直接用
+                if (LastSkill1time == 0)
+                {
+                    isskill1 = true;
+                    moveable = false;
+                    LastSkill1time = Time.time;
+                    //设置UI的覆盖度为1
+                    GetComponent<PlayerUIController>().CdImage3.fillAmount = 1;
+                }
+                //如果不是第一次 那么要过了cd的时间才可以用dash
+                if (Time.time >= LastSkill1time + Skill1Cdtime)
+                {
+                    isskill1 = true;
+                    moveable = false;
+                    LastSkill1time = Time.time;
+                    GetComponent<PlayerUIController>().CdImage3.fillAmount = 1;
+                }
             }
-            if ((Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) && isGround)
+            if ((Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) && isGround && !defence)
             {
                 //如果第一次释放  就可以直接用
                 if (LastSkill2time == 0)
@@ -245,7 +280,7 @@ public class PlayerController : MonoBehaviour
                     GetComponent<PlayerUIController>().CdImage2.fillAmount = 1;
                 }
             }
-            if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && isGround)
+            if ((Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) && isGround && !defence)
             {
                 //attack();
                 if (!isattack)
@@ -259,7 +294,7 @@ public class PlayerController : MonoBehaviour
                 atr.Breakout = true;
                 isbreakout = true;
                 atr.CurrentEnergy -= 3.0f;
-                atr.BreakOut(breakout.GetComponent<SpriteRenderer>().sprite, 10);
+                atr.BreakOut(breakout.GetComponent<BreakAttr>().Breaksprite, 10);
                 SoundManager.instance.Energy1Audio();
                 
             }
@@ -530,9 +565,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Tetanic" + anim.GetCurrentAnimatorStateInfo(0).normalizedTime+moveable);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("HurtFly"))
         {
-            Debug.Log("Hurt" + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            Debug.Log("HurtFly" + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("HurtFly"))
+        {
+            Debug.Log("HurtFly" + anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
         //如果当前处于僵直状态  啥都不能干
@@ -549,11 +588,35 @@ public class PlayerController : MonoBehaviour
             istetanic = false;
         }
 
-
+        if(ishurtfly)
+        {
+            
+            anim.SetBool("hurtfly", true);
+            jumpPressed = false;
+            moveable = false;
+            attackable = false;
+        }
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("HurtFly") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f)
+        {
+            
+            ishurt = false;
+            anim.SetBool("hurt", false);
+            anim.SetBool("hurtfly", false);
+            ishurtfly = false;
+            moveable = true;
+            attackable = true;
+        }
 
         if (atr.Death)
         {
             anim.SetBool("death", true);
+            attackable = false;
+            moveable = false;
+        }
+         if(atr.Win)
+        {
+            anim.SetBool("win", true);
+            attackable = false;
             moveable = false;
         }
     }

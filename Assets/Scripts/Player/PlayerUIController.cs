@@ -25,10 +25,17 @@ public class PlayerUIController : MonoBehaviour
     public float preHurtTime = 0f;
     public int TickNum = 0;
 
+    [Header("Attack阀值参数")]
+    public int AlltickDamage = 0;
+    public int Tickmax = 10;
+
+
     public Image CdIcon1;
     public Image CdImage1;
     public Image CdIcon2;
     public Image CdImage2;
+    public Image CdIcon3;
+    public Image CdImage3;
 
     public Image Head;
     public Slider health;
@@ -53,18 +60,18 @@ public class PlayerUIController : MonoBehaviour
             attrs[i].SetActive(false);
             
         }
-        if (gameObject.tag=="Player1")
-        {
-            Head.sprite = Resources.Load(SenceManager.instance.player1name.Replace("P1", "") + "head", typeof(Sprite)) as Sprite;
-        }else if(gameObject.tag=="Player2")
-        {
+        //if (gameObject.tag=="Player1")
+        //{
+        //    Head.sprite = Resources.Load(SenceManager.instance.player1name.Replace("P1", "") + "head", typeof(Sprite)) as Sprite;
+        //}else if(gameObject.tag=="Player2")
+        //{
             
-            Head.sprite = Resources.Load(SenceManager.instance.player2name.Replace("P2", "") + "head", typeof(Sprite)) as Sprite;
-        }
-        else
-        {
-            Debug.LogError("头像错误？？？");
-        }
+        //    Head.sprite = Resources.Load(SenceManager.instance.player2name.Replace("P2", "") + "head", typeof(Sprite)) as Sprite;
+        //}
+        //else
+        //{
+        //    Debug.LogError("头像错误？？？");
+        //}
         
     }
 
@@ -117,6 +124,12 @@ public class PlayerUIController : MonoBehaviour
         TickText.text = TickNum + "连击";
         TickText.enabled = true;
         preHurtTime = Time.time;
+        if(TickNum>=Tickmax)
+        {
+            //如果连击数量大于最大值  将自己强制倒地
+            GetComponent<PlayerController>().ishurtfly = true;
+            Debug.Log("倒地了。。");
+        }
     }
 
     public void UpdateAtrcds()
@@ -136,6 +149,7 @@ public class PlayerUIController : MonoBehaviour
         UpdateAtrcds();
         CdImage1.fillAmount -= 1 / GetComponent<PlayerController>().dashCdtime * Time.deltaTime;
         CdImage2.fillAmount -= 1 / GetComponent<PlayerController>().Skill2Cdtime * Time.deltaTime;
+        CdImage3.fillAmount -= 1 / GetComponent<PlayerController>().Skill1Cdtime * Time.deltaTime;
         health.value = (float)gameObject.GetComponent<PlayerAttribute>().CurrentBlood / gameObject.GetComponent<PlayerAttribute>().Blood;
         energy.value = (float)gameObject.GetComponent<PlayerAttribute>().CurrentEnergy / gameObject.GetComponent<PlayerAttribute>().Energy;
     }

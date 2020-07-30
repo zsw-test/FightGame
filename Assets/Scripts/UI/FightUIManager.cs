@@ -5,31 +5,29 @@ using UnityEngine.UI;
 
 public class FightUIManager : MonoBehaviour
 {
-    public Image bg;
     float timer = 1f;
-    float m_alpha ;
     public GameObject[] p1wincounts;
     public GameObject[] p2wincounts;
-
+    public GameObject fader;
     // Start is called before the first frame update
     void Start()
     {
-        m_alpha = bg.color.a;
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_alpha>0)
-        {
-            m_alpha -= 0.5f*Time.deltaTime;
-            timer -= 0.5f;
-            Color cur = bg.color;
+        //if(m_alpha>0)
+        //{
+        //    m_alpha -= 0.5f*Time.deltaTime;
+        //    timer -= 0.5f;
+        //    Color cur = bg.color;
 
-            cur.a = m_alpha;
-            bg.color = cur;
-        }
+        //    cur.a = m_alpha;
+        //    bg.color = cur;
+        //}
            
        for(int i=0;i<SenceManager.instance.player1wincount;++i)
         {

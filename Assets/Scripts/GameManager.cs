@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public CameraController cameracontroller;
+    public GameObject fader;
 
     public Text StartText;
     public Text FightText;
@@ -56,18 +57,14 @@ public class GameManager : MonoBehaviour
         Instantiate(p1, SwapPoint1);
         Instantiate(p2, SwapPoint2);
         //设置角色不能进行攻击
-        //SwapPoint1.GetComponentInChildren<PlayerController>().attackable = false;
-        //SwapPoint2.GetComponentInChildren<PlayerController>().attackable = false;
-
+        SwapPoint1.GetComponentInChildren<PlayerController>().attackable = false;
+        SwapPoint2.GetComponentInChildren<PlayerController>().attackable = false;
+        SwapPoint1.GetComponentInChildren<PlayerController>().moveable = false;
+        SwapPoint2.GetComponentInChildren<PlayerController>().moveable = false;
 
     }
 
-    IEnumerator endgame(String p)
-    {
-        cameracontroller.Winner = p;
-        yield return new WaitForSeconds(3f);
-        SenceManager.instance.ChangeSence(5);
-    }
+
     // Update is called once per frame
     void Update()
     {
@@ -94,15 +91,16 @@ public class GameManager : MonoBehaviour
                 //player1胜利局数++
 
                 SenceManager.instance.player1wincount++;
-                
+                SwapPoint1.GetComponentInChildren<PlayerAttribute>().Win = true;
                 //playershow and reload sence
-                
+
                 if (SenceManager.instance.player1wincount == SenceManager.instance.wincount)
                 {
 
                     //跳转到胜利场景
                     GameEnd = true;
                     SenceManager.instance.winnerName = SenceManager.instance.player1name.Replace("P1", "");
+                    
                     cameracontroller.Winner = "P1";
                     
                     //SenceManager.instance.clear();
@@ -110,6 +108,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+
                     cameracontroller.Winner = "P1";
                     //winner里面会控制场景跳转
                 }
@@ -119,7 +118,7 @@ public class GameManager : MonoBehaviour
             {
                 //player2胜利局数++
                 SenceManager.instance.player2wincount++;
-                
+                SwapPoint2.GetComponentInChildren<PlayerAttribute>().Win = true;
                 //playershow and reload sence
                 //result.SetActive(true);
                 if (SenceManager.instance.player2wincount == SenceManager.instance.wincount)
@@ -175,7 +174,8 @@ public class GameManager : MonoBehaviour
 
             SwapPoint1.GetComponentInChildren<PlayerController>().attackable = true;
             SwapPoint2.GetComponentInChildren<PlayerController>().attackable = true;
-
+            SwapPoint1.GetComponentInChildren<PlayerController>().moveable = true;
+            SwapPoint2.GetComponentInChildren<PlayerController>().moveable = true;
             if (timertick<=0)
             {
                 StartText.enabled = false;

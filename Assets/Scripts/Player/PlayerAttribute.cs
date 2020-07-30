@@ -19,6 +19,7 @@ public class PlayerAttribute : MonoBehaviour
     public float DefenceRate = 0.1f;        //物理防御  基础防御，可以减少一定的伤害 减免比例
     public bool Death = false;
     public bool Defence = false;
+    public bool Win = false;
 
     public bool Dazzle, SpeedUp, SpeedDown;
 

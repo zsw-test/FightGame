@@ -101,6 +101,11 @@ public class CameraController : MonoBehaviour
                     GameManager.instance.StartText.enabled = true;
                     GameManager.instance.StartText.text = Winner + "获胜！";
                     timer -= Time.deltaTime;
+                    if(timer<=2f)
+                    {
+                        GameManager.instance.StartText.enabled = false;
+                        GameManager.instance.fader.GetComponent<SenceFader>().FadeOut();
+                    }
                     if (timer <= 0)
                     {
                         timer = 3f;
@@ -123,6 +128,11 @@ public class CameraController : MonoBehaviour
                     GameManager.instance.StartText.enabled = true;
                     GameManager.instance.StartText.text = Winner + "获胜！";
                     timer -= Time.deltaTime;
+                    if (timer <= 2f)
+                    {
+                        GameManager.instance.StartText.enabled = false;
+                        GameManager.instance.fader.GetComponent<SenceFader>().FadeOut();
+                    }
                     if (timer <= 0)
                     {
                         timer = 3f;

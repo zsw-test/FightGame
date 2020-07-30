@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FightSence1.unity
     guid: 5ebf3931a40aad44d88d6b5c97049113
+  - enabled: 1
+    path: Assets/Scenes/FightSence2.unity
+    guid: 53d34bcdea11f49408f20cb3dd3d7021
   m_configObjects: {}

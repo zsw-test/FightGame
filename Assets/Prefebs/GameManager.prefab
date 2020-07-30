@@ -43,10 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8648327ff995149b06fe8159505a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameracontroller: {fileID: 0}
+  fader: {fileID: 0}
   StartText: {fileID: 0}
   FightText: {fileID: 0}
-  StartTimer: 3
-  FightTimer: 60
+  StartTimer: 4
+  FightTimer: 9999
   Startcountdown: 0
   Fightcountdown: 0
+  EndRound: 0
+  EndRoundExecute: 0
+  GameEnd: 0
+  player1: {fileID: 8533111660040271348, guid: c9c8a17d482078d4198927eb70e9d18e, type: 3}
+  player2: {fileID: 142016259264424190, guid: a46f27afd022dc541aaccfef65f8f99e, type: 3}
+  players: []
   result: {fileID: 0}
+  SwapPoint1: {fileID: 0}
+  SwapPoint2: {fileID: 0}
+  p1Obstacle: {fileID: 0}
+  p2Obstacle: {fileID: 0}
